@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>淡路島・鳴門・有馬温泉の旅 2026.11.13-15</title>
+<meta name="description" content="神戸・有馬温泉・鳴門・淡路島 2泊3日の旅のしおり">
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --card:#ffffff;
+    --ink:#2b2620;
+    --sub:#7a7266;
+    --line:#e7e0d3;
+    --navy:#1f3a4d;
+    --navy-deep:#132a38;
+    --teal:#2ba7a0;
+    --teal-deep:#1d7a75;
+    --sunset:#e8794f;
+    --gold:#d9a441;
+    --pink:#e8617c;
+    --purple:#8b6fce;
+    --blue:#7c93c9;
+    --gray:#a9a297;
+    --radius:18px;
+    --shadow: 0 8px 24px rgba(31,58,77,0.10), 0 2px 6px rgba(31,58,77,0.06);
+    font-size:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family: "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:520px;margin:0 auto;background:var(--bg);min-height:100vh;position:relative;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:340px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    color:#fff;
+    background:
+      linear-gradient(180deg, rgba(19,42,56,0.15) 0%, rgba(19,42,56,0.55) 55%, rgba(19,42,56,0.92) 100%),
+      url('https://commons.wikimedia.org/wiki/Special:FilePath/Onaruto-bridge_and_Naruto_Channel,Naruto-city,Japan.JPG?width=1200') center/cover no-repeat;
+    padding:28px 22px 22px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(19,42,56,0.05), transparent 40%);
+  }
+  .hero-eyebrow{
+    font-size:12.5px; letter-spacing:.14em; font-weight:700; opacity:.9;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    margin:10px 0 6px; font-size:26px; line-height:1.35; font-weight:800;
+    text-shadow:0 2px 10px rgba(0,0,0,0.35);
+  }
+  .hero .dates{
+    font-size:14.5px; font-weight:600; opacity:.95; margin-bottom:14px;
+  }
+  .hero .members{
+    display:flex; flex-wrap:wrap; gap:6px;
+  }
+  .chip{
+    background:rgba(255,255,255,0.16);
+    border:1px solid rgba(255,255,255,0.35);
+    backdrop-filter:blur(4px);
+    color:#fff;
+    padding:5px 12px;
+    border-radius:999px;
+    font-size:12.5px;
+    font-weight:600;
+  }
+
+  /* ---------- STICKY NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(244,241,234,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+  }
+  .nav-scroll{
+    display:flex; gap:8px; overflow-x:auto; padding:0 16px;
+    scrollbar-width:none;
+  }
+  .nav-scroll::-webkit-scrollbar{display:none;}
+  .nav a{
+    flex:0 0 auto;
+    text-decoration:none;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--line);
+    padding:7px 13px;
+    border-radius:999px;
+    font-size:12.5px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:30px 18px 6px;}
+  .section-head{display:flex; align-items:baseline; gap:8px; margin-bottom:14px;}
+  .section-head .icon{font-size:20px;}
+  .section-head h2{font-size:19px; margin:0; font-weight:800; color:var(--navy-deep);}
+  .section-head .en{font-size:11px; color:var(--sub); letter-spacing:.08em; text-transform:uppercase; font-weight:700;}
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:16px;
+    margin-bottom:14px;
+  }
+  .note{
+    font-size:12.5px;
+    color:var(--sub);
+    background:#fbf6ea;
+    border:1px dashed #e3cf9a;
+    padding:10px 12px;
+    border-radius:12px;
+    margin-top:10px;
+  }
+  .note.warn{ background:#fdeeee; border-color:#eab8b8; color:#8a3b3b; }
+
+  /* ---------- DAY / TIMELINE ---------- */
+  .day-card{ margin-bottom:22px; }
+  .day-photo{
+    width:100%; height:150px; object-fit:cover; border-radius:var(--radius) var(--radius) 0 0;
+    display:block;
+  }
+  .day-head{
+    background:var(--navy);
+    color:#fff;
+    padding:14px 16px;
+    display:flex; align-items:center; justify-content:space-between;
+    border-radius:0;
+  }
+  .day-head.first{ border-radius: var(--radius) var(--radius) 0 0; }
+  .day-head .d-date{ font-size:12px; opacity:.85; font-weight:600; }
+  .day-head .d-title{ font-size:16.5px; font-weight:800; margin-top:2px; }
+  .day-head .d-tag{
+    font-size:11px; background:rgba(255,255,255,0.18); padding:4px 10px; border-radius:999px; font-weight:700;
+  }
+  .timeline-box{
+    background:var(--card);
+    border-radius:0 0 var(--radius) var(--radius);
+    box-shadow:var(--shadow);
+    padding:14px 14px 18px;
+  }
+  .timeline{ display:flex; }
+  .t-hours{ position:relative; width:40px; flex:0 0 40px; }
+  .t-hours span{
+    position:absolute; left:0; transform:translateY(-50%);
+    font-size:10.5px; color:var(--sub); font-weight:700;
+  }
+  .t-grid{
+    position:relative; flex:1;
+    background-image:repeating-linear-gradient(to bottom, var(--line) 0, var(--line) 1px, transparent 1px, transparent 52px);
+    border-left:1px solid var(--line);
+    margin-left:6px;
+  }
+  .ev{
+    position:absolute; left:4px; right:0;
+    border-radius:9px;
+    padding:5px 9px;
+    font-size:12px;
+    font-weight:600;
+    color:var(--ink);
+    border-left:4px solid var(--gray);
+    background:#f3f1eb;
+    overflow:hidden;
+  }
+  .ev .tm{ display:block; font-size:10.5px; font-weight:800; opacity:.65; margin-bottom:1px; }
+  .ev.car{ border-color:var(--sunset); background:#fdf0e8; }
+  .ev.sightsee{ border-color:var(--teal); background:#e9f6f5; }
+  .ev.meal{ border-color:var(--pink); background:#fdedf0; }
+  .ev.move{ border-color:var(--blue); background:#eef1f9; }
+  .ev.hotel{ border-color:var(--purple); background:#f2eefb; }
+  .ev.note{ border-color:var(--gray); background:#f1efe9; font-weight:700; }
+
+  /* ---------- STAY CARDS ---------- */
+  .stay{ display:flex; flex-direction:column; overflow:hidden; padding:0; }
+  .stay img{ width:100%; height:170px; object-fit:cover; }
+  .stay .body{ padding:14px 16px 16px; }
+  .stay .badge{
+    display:inline-block; font-size:11px; font-weight:800; color:#fff;
+    background:var(--teal-deep); padding:4px 10px; border-radius:999px; margin-bottom:8px;
+  }
+  .stay .badge.night2{ background:var(--purple); }
+  .stay .badge.car{ background:var(--sunset); }
+  .stay h3{ margin:0 0 6px; font-size:17px; }
+  dl.info{ margin:10px 0 0; font-size:13px; }
+  dl.info div{ display:flex; padding:5px 0; border-bottom:1px dashed var(--line); gap:10px;}
+  dl.info div:last-child{ border-bottom:none; }
+  dl.info dt{ flex:0 0 82px; color:var(--sub); font-weight:700; }
+  dl.info dd{ margin:0; flex:1; }
+  dl.info a{ color:var(--teal-deep); }
+
+  /* ---------- TABLES ---------- */
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th,td{ text-align:left; padding:8px 6px; border-bottom:1px solid var(--line); }
+  th{ color:var(--sub); font-weight:700; font-size:11.5px; text-transform:uppercase; letter-spacing:.03em; }
+  tr.total td{ font-weight:800; border-top:2px solid var(--navy); border-bottom:none; padding-top:10px; }
+  td.num, th.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .plus{ color:var(--teal-deep); font-weight:800; }
+  .minus{ color:var(--pink); font-weight:800; }
+
+  /* ---------- CHECKLIST ---------- */
+  ul.checklist{ list-style:none; margin:0; padding:0; }
+  ul.checklist li{
+    display:flex; align-items:flex-start; gap:10px;
+    padding:9px 0; border-bottom:1px solid var(--line);
+    font-size:13.5px;
+  }
+  ul.checklist li:last-child{ border-bottom:none; }
+  ul.checklist input[type=checkbox]{
+    width:19px; height:19px; margin-top:1px; accent-color:var(--teal-deep); flex:0 0 19px;
+  }
+  ul.checklist label{ flex:1; }
+  ul.checklist li.checked label{ color:var(--sub); text-decoration:line-through; }
+  .sub-label{ font-size:11px; color:var(--sub); font-weight:700; margin:16px 0 6px; }
+  .sub-label:first-child{ margin-top:0; }
+
+  /* ---------- LINKS ---------- */
+  .linklist{ list-style:none; margin:0; padding:0; }
+  .linklist li{ border-bottom:1px solid var(--line); }
+  .linklist li:last-child{ border-bottom:none; }
+  .linklist a{
+    display:flex; align-items:center; gap:10px;
+    padding:12px 2px; text-decoration:none; color:var(--ink);
+  }
+  .linklist a .em{ font-size:18px; flex:0 0 22px; text-align:center; }
+  .linklist a .tx{ flex:1; }
+  .linklist a .tx b{ display:block; font-size:13.5px; }
+  .linklist a .tx small{ color:var(--sub); font-size:11.5px; }
+  .linklist a .go{ color:var(--gray); font-size:14px; }
+
+  footer{
+    text-align:center; padding:34px 18px 44px; color:var(--sub); font-size:11.5px;
+  }
+  .grad-line{ height:4px; background:linear-gradient(90deg, var(--teal), var(--gold), var(--sunset)); border-radius:4px; margin:0 18px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div class="hero-eyebrow">Kobe · Arima Onsen · Naruto · Awaji Island</div>
+    <h1>淡路島・鳴門<br>有馬温泉の旅</h1>
+    <div class="dates">2026.11.13 Fri &ndash; 11.15 Sun ・ 2泊3日</div>
+    <div class="members">
+      <span class="chip">👑 ひゅーが</span>
+      <span class="chip">🚗 たいせい</span>
+      <span class="chip">🏨 ます</span>
+      <span class="chip">🔥 たくみ</span>
+      <span class="chip">🏡 ちすわ</span>
+    </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav">
+    <div class="nav-scroll">
+      <a href="#itinerary">🗓️ 旅程</a>
+      <a href="#stay">🏨 宿泊・車</a>
+      <a href="#cost-group">💴 費用(グループ)</a>
+      <a href="#cost-personal">👛 費用(個人)</a>
+      <a href="#packing">🎒 持ち物</a>
+      <a href="#todo">✅ 残タスク</a>
+      <a href="#links">🔗 リンク</a>
+    </div>
+  </nav>
+
+  <div class="grad-line"></div>
+
+  <!-- ============ 旅程 ============ -->
+  <section id="itinerary">
+    <div class="section-head">
+      <span class="icon">🗓️</span>
+      <div><h2>旅程</h2><div class="en">Itinerary</div></div>
+    </div>
+
+    <!-- DAY 1 -->
+    <div class="day-card">
+      <img class="day-photo" loading="lazy" alt="神戸の街並み"
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Kobe_Port_Tower.jpg?width=900">
+      <div class="day-head first">
+        <div><div class="d-date">2026.11.13 (金)</div><div class="d-title">Day 1・神戸 → 有馬温泉</div></div>
+        <div class="d-tag">有馬温泉 泊</div>
+      </div>
+      <div class="timeline-box">
+        <div class="timeline">
+          <div class="t-hours" style="height:728px;">
+            <span style="top:0px">9</span><span style="top:52px">10</span><span style="top:104px">11</span>
+            <span style="top:156px">12</span><span style="top:208px">13</span><span style="top:260px">14</span>
+            <span style="top:312px">15</span><span style="top:364px">16</span><span style="top:416px">17</span>
+            <span style="top:468px">18</span><span style="top:520px">19</span><span style="top:572px">20</span>
+            <span style="top:624px">21</span><span style="top:676px">22</span><span style="top:728px">23</span>
+          </div>
+          <div class="t-grid" style="height:728px;">
+            <div class="ev car" style="top:104px;height:26px;"><span class="tm">11:00-11:30</span>三宮集合・レンタカー受取</div>
+            <div class="ev sightsee" style="top:130px;height:78px;"><span class="tm">11:30-13:00</span>神戸観光①（北野異人館・南京町など）</div>
+            <div class="ev meal" style="top:208px;height:52px;"><span class="tm">13:00-14:00</span>昼食（神戸グルメ）</div>
+            <div class="ev sightsee" style="top:260px;height:78px;"><span class="tm">14:00-15:30</span>神戸観光②（メリケンパーク・ハーバーランド）</div>
+            <div class="ev move" style="top:338px;height:78px;"><span class="tm">15:30-17:00</span>有馬温泉へ移動</div>
+            <div class="ev hotel" style="top:416px;height:52px;"><span class="tm">17:00-18:00</span>亀の井ホテル有馬 チェックイン</div>
+            <div class="ev meal" style="top:468px;height:78px;"><span class="tm">18:00-19:30</span>夕食（土地の恵み会席）</div>
+            <div class="ev sightsee" style="top:546px;height:156px;"><span class="tm">19:30-22:30</span>温泉街散策・外湯めぐり（金の湯・銀の湯）</div>
+            <div class="ev note" style="top:702px;height:26px;"><span class="tm">23:00</span>門限（ホテル帰着）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-card">
+      <img class="day-photo" loading="lazy" alt="鳴門の渦潮"
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/The_whirling_current_in_Naruto.JPG?width=900">
+      <div class="day-head first">
+        <div><div class="d-date">2026.11.14 (土)</div><div class="d-title">Day 2・鳴門 → 淡路島</div></div>
+        <div class="d-tag">淡路島コテージ 泊</div>
+      </div>
+      <div class="timeline-box">
+        <div class="timeline">
+          <div class="t-hours" style="height:832px;">
+            <span style="top:0px">7</span><span style="top:52px">8</span><span style="top:104px">9</span>
+            <span style="top:156px">10</span><span style="top:208px">11</span><span style="top:260px">12</span>
+            <span style="top:312px">13</span><span style="top:364px">14</span><span style="top:416px">15</span>
+            <span style="top:468px">16</span><span style="top:520px">17</span><span style="top:572px">18</span>
+            <span style="top:624px">19</span><span style="top:676px">20</span><span style="top:728px">21</span>
+            <span style="top:780px">22</span><span style="top:832px">23</span>
+          </div>
+          <div class="t-grid" style="height:832px;">
+            <div class="ev meal" style="top:0px;height:52px;"><span class="tm">7:00-8:00</span>朝食</div>
+            <div class="ev note" style="top:52px;height:26px;"><span class="tm">8:00-8:30</span>チェックアウト準備</div>
+            <div class="ev move" style="top:78px;height:104px;"><span class="tm">8:30-10:30</span>鳴門公園へ移動（神戸淡路鳴門自動車道）</div>
+            <div class="ev sightsee" style="top:182px;height:78px;"><span class="tm">10:30-12:00</span>鳴門観潮（渦の道 or 観潮船）</div>
+            <div class="ev meal" style="top:260px;height:52px;"><span class="tm">12:00-13:00</span>昼食（鳴門・淡路島）</div>
+            <div class="ev move" style="top:312px;height:78px;"><span class="tm">13:00-14:30</span>淡路島へ移動</div>
+            <div class="ev sightsee" style="top:390px;height:130px;"><span class="tm">14:30-17:00</span>淡路島観光（道の駅うずしお等・自由行動）</div>
+            <div class="ev hotel" style="top:520px;height:52px;"><span class="tm">17:00-18:00</span>Awaji Seaview Resort in Nojima チェックイン</div>
+            <div class="ev note" style="top:572px;height:78px;"><span class="tm">18:00-19:30</span>BBQ準備・買い出し</div>
+            <div class="ev meal" style="top:650px;height:182px;"><span class="tm">19:30-23:00</span>庭でBBQ・団らん</div>
+          </div>
+        </div>
+        <div class="note">🌊 渦潮は干潮・満潮の前後で見え方が大きく変わります。当日の<b>潮見表</b>を事前にチェックしましょう（リンクまとめ参照）。</div>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-card">
+      <img class="day-photo" loading="lazy" alt="淡路島の海岸"
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohama_Coast_Awaji_Island_Japan08n.jpg?width=900">
+      <div class="day-head first">
+        <div><div class="d-date">2026.11.15 (日)</div><div class="d-title">Day 3・淡路島西海岸 → 解散</div></div>
+        <div class="d-tag">神戸解散</div>
+      </div>
+      <div class="timeline-box">
+        <div class="timeline">
+          <div class="t-hours" style="height:312px;">
+            <span style="top:0px">7</span><span style="top:52px">8</span><span style="top:104px">9</span>
+            <span style="top:156px">10</span><span style="top:208px">11</span><span style="top:260px">12</span>
+            <span style="top:312px">13</span>
+          </div>
+          <div class="t-grid" style="height:312px;">
+            <div class="ev meal" style="top:0px;height:104px;"><span class="tm">7:00-9:00</span>起床・朝食（各自）</div>
+            <div class="ev note" style="top:104px;height:52px;"><span class="tm">9:00-10:00</span>コテージ片付け・チェックアウト準備</div>
+            <div class="ev sightsee" style="top:156px;height:52px;"><span class="tm">10:00-11:00</span>チェックアウト → 淡路島西海岸ドライブ（慶野松原など）</div>
+            <div class="ev car" style="top:208px;height:26px;"><span class="tm">11:00</span>三宮着・レンタカー返却</div>
+            <div class="ev note" style="top:234px;height:78px;"><span class="tm">11:30-</span>神戸で解散・各自帰路へ</div>
+          </div>
+        </div>
+        <div class="note warn">⚠️ レンタカー返却は<b>11:00必須</b>。ドライブ時間が延びると間に合わないので、10:00にはコテージを出発できるようにしましょう。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 宿泊・レンタカー ============ -->
+  <section id="stay">
+    <div class="section-head">
+      <span class="icon">🏨</span>
+      <div><h2>宿泊・レンタカー</h2><div class="en">Stay &amp; Car</div></div>
+    </div>
+
+    <div class="card stay">
+      <img loading="lazy" alt="有馬温泉"
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/有馬温泉_01.JPG?width=900">
+      <div class="body">
+        <span class="badge">1泊目</span>
+        <h3>有馬温泉 亀の井ホテル 有馬</h3>
+        <dl class="info">
+          <div><dt>日程</dt><dd>2026-11-13(金) 17:00 IN → 11-14(土) OUT</dd></div>
+          <div><dt>部屋</dt><dd>和室10畳（5名）／早期割28 土地の恵み会席</dd></div>
+          <div><dt>住所</dt><dd>兵庫県神戸市北区有馬町1617-1</dd></div>
+          <div><dt>電話</dt><dd><a href="tel:078-904-0951">078-904-0951</a></dd></div>
+          <div><dt>料金</dt><dd>87,728円（税込97,475円 − クーポン9,747円）</dd></div>
+          <div><dt>備考</dt><dd>門限23:00／入湯税 大人150円は現地払い</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card stay">
+      <img loading="lazy" alt="淡路島の海辺"
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohama_Coast_Awaji_Island_Japan08n.jpg?width=900">
+      <div class="body">
+        <span class="badge night2">2泊目</span>
+        <h3>Awaji Seaview Resort in Nojima</h3>
+        <dl class="info">
+          <div><dt>日程</dt><dd>2026-11-14(土) 17:00 IN → 11-15(日) OUT</dd></div>
+          <div><dt>部屋</dt><dd>野島ログハウス（貸切・7名可／5名利用）庭でBBQ可</dd></div>
+          <div><dt>住所</dt><dd>兵庫県淡路市野島貴船23-8</dd></div>
+          <div><dt>電話</dt><dd><a href="tel:06-6563-9820">06-6563-9820</a></dd></div>
+          <div><dt>料金</dt><dd>45,450円（税込50,500円 − クーポン5,050円）</dd></div>
+          <div><dt>備考</dt><dd>食事なしプラン（BBQは各自食材持込・買い出し）</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card stay">
+      <div class="body" style="padding-top:16px;">
+        <span class="badge car">レンタカー</span>
+        <h3>ニコニコレンタカー 三宮店</h3>
+        <dl class="info">
+          <div><dt>予約番号</dt><dd>000260010000000000000000139845</dd></div>
+          <div><dt>予約者</dt><dd>須崎泰成（たいせい）</dd></div>
+          <div><dt>電話</dt><dd><a href="tel:078-251-8833">078-251-8833</a></dd></div>
+          <div><dt>出発</dt><dd>2026-11-13(金) 11:00</dd></div>
+          <div><dt>返却</dt><dd>2026-11-15(日) 11:00</dd></div>
+          <div><dt>車両</dt><dd>シエンタ（Gクラス／禁煙車／ビルトインナビ）</dd></div>
+          <div><dt>補償</dt><dd>免責補償プラス</dd></div>
+          <div><dt>料金</dt><dd>18,920円（会員価格）</dd></div>
+          <div><dt>備考</dt><dd>出発・帰着は予約者本人の来店が必要／同乗運転する人は免許証コピー持参</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 費用（グループ） ============ -->
+  <section id="cost-group">
+    <div class="section-head">
+      <span class="icon">💴</span>
+      <div><h2>費用（グループ）</h2><div class="en">Shared Cost</div></div>
+    </div>
+    <div class="card">
+      <table>
+        <thead><tr><th>項目</th><th>立替</th><th class="num">金額</th></tr></thead>
+        <tbody>
+          <tr><td>レンタカー（シエンタ・2泊3日）</td><td>たいせい</td><td class="num">18,920円</td></tr>
+          <tr><td>有馬温泉 亀の井ホテル（1泊・5名）</td><td>ます</td><td class="num">87,728円</td></tr>
+          <tr><td>淡路島コテージ（1泊・5名）</td><td>ちすわ</td><td class="num">45,450円</td></tr>
+          <tr class="total"><td>合計</td><td></td><td class="num">152,098円</td></tr>
+        </tbody>
+      </table>
+      <div class="note">1人あたり約 <b>30,420円</b>（5名で均等割り、端数2円のみ調整）</div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0;font-size:14.5px;">精算早見表</h3>
+      <table>
+        <thead><tr><th>メンバー</th><th class="num">立替額</th><th class="num">負担額(1/5)</th><th class="num">精算</th></tr></thead>
+        <tbody>
+          <tr><td>ます</td><td class="num">87,728円</td><td class="num">30,420円</td><td class="num plus">+57,308（受取）</td></tr>
+          <tr><td>ちすわ</td><td class="num">45,450円</td><td class="num">30,420円</td><td class="num plus">+15,030（受取）</td></tr>
+          <tr><td>たいせい</td><td class="num">18,920円</td><td class="num">30,420円</td><td class="num minus">-11,500（支払）</td></tr>
+          <tr><td>ひゅーが</td><td class="num">0円</td><td class="num">30,420円</td><td class="num minus">-30,420（支払）</td></tr>
+          <tr><td>たくみ</td><td class="num">0円</td><td class="num">30,418円</td><td class="num minus">-30,418（支払）</td></tr>
+        </tbody>
+      </table>
+      <div class="note">たくみのみ端数調整で30,418円（他4名は30,420円）。送金アプリ or 現地精算でOK。</div>
+    </div>
+  </section>
+
+  <!-- ============ 費用（個人） ============ -->
+  <section id="cost-personal">
+    <div class="section-head">
+      <span class="icon">👛</span>
+      <div><h2>費用（個人）</h2><div class="en">Personal Cost</div></div>
+    </div>
+    <div class="card">
+      <table>
+        <thead><tr><th>項目</th><th class="num">目安金額</th></tr></thead>
+        <tbody>
+          <tr><td>自宅⇔三宮の往復交通費</td><td class="num">各自</td></tr>
+          <tr><td>昼食・自由行動中の飲食代（3食分）</td><td class="num">3,000〜4,500円</td></tr>
+          <tr><td>有馬温泉 入湯税（現地払い）</td><td class="num">150円</td></tr>
+          <tr><td>鳴門観潮チケット（渦の道）</td><td class="num">大人510円</td></tr>
+          <tr><td>鳴門観潮チケット（観潮船わんだーなると・選択制）</td><td class="num">大人1,800円</td></tr>
+          <tr><td>高速道路料金・ガソリン代（当日精算）</td><td class="num">未定</td></tr>
+          <tr><td>お土産代</td><td class="num">各自</td></tr>
+        </tbody>
+      </table>
+      <div class="note">渦潮は「渦の道」か「観潮船」どちらか（または両方）お好みで。高速代・ガソリン代は当日レシートを見て運転者含め精算方法を決めましょう。</div>
+    </div>
+  </section>
+
+  <!-- ============ 持ち物 ============ -->
+  <section id="packing">
+    <div class="section-head">
+      <span class="icon">🎒</span>
+      <div><h2>持ち物</h2><div class="en">Packing List</div></div>
+    </div>
+    <div class="card">
+      <div class="sub-label">必須</div>
+      <ul class="checklist" data-store="pack-must">
+        <li><input type="checkbox" id="p1"><label for="p1">健康保険証</label></li>
+        <li><input type="checkbox" id="p2"><label for="p2">運転免許証（同乗運転する人は全員分のコピーも）</label></li>
+        <li><input type="checkbox" id="p3"><label for="p3">現金（精算・入湯税・BBQ用）</label></li>
+        <li><input type="checkbox" id="p4"><label for="p4">モバイルバッテリー・充電ケーブル</label></li>
+        <li><input type="checkbox" id="p5"><label for="p5">常備薬・酔い止め</label></li>
+      </ul>
+      <div class="sub-label">服装・防寒</div>
+      <ul class="checklist" data-store="pack-wear">
+        <li><input type="checkbox" id="p6"><label for="p6">羽織れる上着（11月夜は冷え込みます）</label></li>
+        <li><input type="checkbox" id="p7"><label for="p7">着替え（1泊目・2泊目分）</label></li>
+        <li><input type="checkbox" id="p8"><label for="p8">歩きやすい靴（渦の道・淡路島散策用）</label></li>
+        <li><input type="checkbox" id="p9"><label for="p9">BBQで汚れてもいい服・軍手</label></li>
+      </ul>
+      <div class="sub-label">有馬温泉用</div>
+      <ul class="checklist" data-store="pack-onsen">
+        <li><input type="checkbox" id="p10"><label for="p10">タオル（外湯めぐり用、フェイスタオルでOK）</label></li>
+        <li><input type="checkbox" id="p11"><label for="p11">歯ブラシ等アメニティ（2泊目コテージ用）</label></li>
+      </ul>
+      <div class="sub-label">その他</div>
+      <ul class="checklist" data-store="pack-etc">
+        <li><input type="checkbox" id="p12"><label for="p12">虫よけ（庭でBBQ）</label></li>
+        <li><input type="checkbox" id="p13"><label for="p13">カメラ・サブバッテリー</label></li>
+        <li><input type="checkbox" id="p14"><label for="p14">エコバッグ（買い出し用）</label></li>
+        <li><input type="checkbox" id="p15"><label for="p15">ゴミ袋（BBQ後の片付け用）</label></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 残タスク ============ -->
+  <section id="todo">
+    <div class="section-head">
+      <span class="icon">✅</span>
+      <div><h2>残タスク</h2><div class="en">To Do</div></div>
+    </div>
+    <div class="card">
+      <ul class="checklist" data-store="todo-list">
+        <li><input type="checkbox" id="t1"><label for="t1">【各自】11/13(金) 11:00までに三宮着の交通手段を確保</label></li>
+        <li><input type="checkbox" id="t2"><label for="t2">【各自】11/15(日)午後に帰る交通手段を確保</label></li>
+        <li><input type="checkbox" id="t3"><label for="t3">渦潮の潮見表を確認し、観潮のベストタイムを決める</label></li>
+        <li><input type="checkbox" id="t4"><label for="t4">渦潮の見方（渦の道 or 観潮船）を決める</label></li>
+        <li><input type="checkbox" id="t5"><label for="t5">BBQ食材・飲み物の買い出し担当を決める</label></li>
+        <li><input type="checkbox" id="t6"><label for="t6">コテージにBBQコンロ・炭の有無を確認（無ければ手配）</label></li>
+        <li><input type="checkbox" id="t7"><label for="t7">同乗運転する人の免許証コピーを準備</label></li>
+        <li><input type="checkbox" id="t8"><label for="t8">立て替え精算の方法を決める（送金アプリ／現金）</label></li>
+        <li><input type="checkbox" id="t9"><label for="t9">有馬温泉 外湯（金の湯・銀の湯）の営業時間を確認</label></li>
+        <li><input type="checkbox" id="t10"><label for="t10">神戸観光の行き先を決める（北野異人館／南京町／メリケンパーク 等）</label></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ リンクまとめ ============ -->
+  <section id="links">
+    <div class="section-head">
+      <span class="icon">🔗</span>
+      <div><h2>リンクまとめ</h2><div class="en">Links</div></div>
+    </div>
+    <div class="card" style="padding:4px 16px;">
+      <ul class="linklist">
+        <li><a href="https://www.2525r.com/hyogo/kobe/chuo/store-00026-001.html" target="_blank" rel="noopener">
+          <span class="em">🚗</span><span class="tx"><b>ニコニコレンタカー 三宮店</b><small>店舗アクセス・地図</small></span><span class="go">›</span>
+        </a></li>
+        <li><a href="https://2525r.onelink.me/9A0t/ke9gxbeo" target="_blank" rel="noopener">
+          <span class="em">📱</span><span class="tx"><b>ニコパス（会員アプリ）</b><small>ダウンロード</small></span><span class="go">›</span>
+        </a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&query=兵庫県神戸市北区有馬町1617-1" target="_blank" rel="noopener">
+          <span class="em">🏨</span><span class="tx"><b>亀の井ホテル 有馬</b><small>Googleマップ</small></span><span class="go">›</span>
+        </a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&query=兵庫県淡路市野島貴船23-8" target="_blank" rel="noopener">
+          <span class="em">🏡</span><span class="tx"><b>Awaji Seaview Resort in Nojima</b><small>Googleマップ</small></span><span class="go">›</span>
+        </a></li>
+        <li><a href="https://www.uzunomichi.jp/" target="_blank" rel="noopener">
+          <span class="em">🌀</span><span class="tx"><b>渦の道（大鳴門橋遊歩道）</b><small>公式サイト・料金</small></span><span class="go">›</span>
+        </a></li>
+        <li><a href="https://www.uzusio.com/" target="_blank" rel="noopener">
+          <span class="em">🚢</span><span class="tx"><b>うずしお観潮船</b><small>わんだーなると・アクアエディ 公式</small></span><span class="go">›</span>
+        </a></li>
+        <li><a href="https://www.uzusio.com/siomi/" target="_blank" rel="noopener">
+          <span class="em">🌊</span><span class="tx"><b>潮見表</b><small>渦潮の見頃をチェック</small></span><span class="go">›</span>
+        </a></li>
+        <li><a href="https://www.uzushio-kisen.com/" target="_blank" rel="noopener">
+          <span class="em">⛴️</span><span class="tx"><b>うずしお汽船</b><small>もう一つの観潮船候補</small></span><span class="go">›</span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    淡路島・鳴門・有馬温泉の旅 2026.11.13&ndash;15 ／ Have a nice trip 🚗🌊♨️
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('ul.checklist').forEach(function(list){
+    var key = 'trip-' + (list.dataset.store || 'default');
+    var saved = {};
+    try{ saved = JSON.parse(localStorage.getItem(key) || '{}'); }catch(e){}
+    list.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      if(saved[cb.id]){ cb.checked = true; cb.closest('li').classList.add('checked'); }
+      cb.addEventListener('change', function(){
+        cb.closest('li').classList.toggle('checked', cb.checked);
+        saved[cb.id] = cb.checked;
+        localStorage.setItem(key, JSON.stringify(saved));
+      });
+    });
+  });
+</script>
+</body>
+</html>
