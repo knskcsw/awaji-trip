@@ -220,6 +220,7 @@
     width:19px; height:19px; margin-top:1px; accent-color:var(--teal-deep); flex:0 0 19px;
   }
   ul.checklist label{ flex:1; }
+  ul.checklist label .note-sub{ display:block; font-size:11px; color:var(--sub); font-weight:400; margin-top:1px; }
   ul.checklist li.checked label{ color:var(--sub); text-decoration:line-through; }
   .sub-label{ font-size:11px; color:var(--sub); font-weight:700; margin:16px 0 6px; }
   .sub-label:first-child{ margin-top:0; }
@@ -497,7 +498,6 @@
           <tr class="total"><td>合計（目安）</td><td class="num">約5,510〜6,800円 + 各自</td></tr>
         </tbody>
       </table>
-      <div class="note">※チケット代は渦の道(510円)〜観潮船(1,800円)のレンジ／交通費・お土産代など「各自」の項目は合計に含まず</div>
     </div>
   </section>
 
@@ -517,21 +517,25 @@
       </ul>
       <div class="sub-label">服装・防寒</div>
       <ul class="checklist" data-store="pack-wear">
-        <li><input type="checkbox" id="p7"><label for="p7">羽織れる上着（11月夜は冷え込みます）</label></li>
-        <li><input type="checkbox" id="p8"><label for="p8">着替え（1泊目・2泊目分）</label></li>
-        <li><input type="checkbox" id="p9"><label for="p9">歩きやすい靴（渦の道・淡路島散策用）</label></li>
+        <li><input type="checkbox" id="p7"><label for="p7">羽織れる上着<span class="note-sub">11月夜は冷え込みます</span></label></li>
+        <li><input type="checkbox" id="p17"><label for="p17">パジャマ</label></li>
+        <li><input type="checkbox" id="p18"><label for="p18">肌着2日分</label></li>
+        <li><input type="checkbox" id="p19"><label for="p19">靴下2日分</label></li>
+        <li><input type="checkbox" id="p20"><label for="p20">下着2日分</label></li>
+        <li><input type="checkbox" id="p21"><label for="p21">トップス2日分</label></li>
+        <li><input type="checkbox" id="p22"><label for="p22">ボトムス</label></li>
         <li><input type="checkbox" id="p10"><label for="p10">BBQで汚れてもいい服</label></li>
       </ul>
       <div class="sub-label">有馬温泉用</div>
       <ul class="checklist" data-store="pack-onsen">
-        <li><input type="checkbox" id="p11"><label for="p11">タオル（外湯めぐり用、フェイスタオルでOK）</label></li>
-        <li><input type="checkbox" id="p12"><label for="p12">歯ブラシ（2泊目コテージはシャンプー・タオル類ありだが歯ブラシは持参）</label></li>
+        <li><input type="checkbox" id="p11"><label for="p11">タオル<span class="note-sub">有馬温泉 外湯めぐり用・フェイスタオルでOK</span></label></li>
+        <li><input type="checkbox" id="p12"><label for="p12">歯ブラシ<span class="note-sub">淡路島コテージに無し</span></label></li>
       </ul>
       <div class="sub-label">その他</div>
       <ul class="checklist" data-store="pack-etc">
-        <li><input type="checkbox" id="p13"><label for="p13">虫よけ（庭でBBQ）</label></li>
-        <li><input type="checkbox" id="p15"><label for="p15">エコバッグ（買い出し用）</label></li>
-        <li><input type="checkbox" id="p16"><label for="p16">ゴミ袋（BBQ後の片付け用）</label></li>
+        <li><input type="checkbox" id="p13"><label for="p13">虫よけ<span class="note-sub">庭でBBQ</span></label></li>
+        <li><input type="checkbox" id="p15"><label for="p15">エコバッグ<span class="note-sub">買い出し用</span></label></li>
+        <li><input type="checkbox" id="p16"><label for="p16">ゴミ袋<span class="note-sub">BBQ後の片付け用</span></label></li>
       </ul>
     </div>
   </section>
