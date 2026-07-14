@@ -71,31 +71,15 @@
     letter-spacing:.02em;
   }
 
-  /* ---------- STICKY NAV ---------- */
-  .nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(244,241,234,0.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-    padding:10px 0;
+  /* ---------- TOC ---------- */
+  .toc{ list-style:none; margin:0; padding:0; }
+  .toc li{ border-bottom:1px solid var(--line); }
+  .toc li:last-child{ border-bottom:none; }
+  .toc a{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 2px; text-decoration:none; color:var(--ink); font-weight:700; font-size:14px;
   }
-  .nav-scroll{
-    display:flex; gap:8px; overflow-x:auto; padding:0 16px;
-    scrollbar-width:none;
-  }
-  .nav-scroll::-webkit-scrollbar{display:none;}
-  .nav a{
-    flex:0 0 auto;
-    text-decoration:none;
-    color:var(--navy);
-    background:#fff;
-    border:1px solid var(--line);
-    padding:7px 13px;
-    border-radius:999px;
-    font-size:12.5px;
-    font-weight:700;
-    white-space:nowrap;
-  }
+  .toc a .go{ color:var(--gray); font-size:14px; }
 
   /* ---------- SECTIONS ---------- */
   section{padding:30px 18px 6px;}
@@ -165,7 +149,6 @@
     font-size:12px;
     font-weight:600;
     color:var(--ink);
-    border-left:4px solid var(--gray);
     background:#f3f1eb;
     overflow:hidden;
   }
@@ -176,12 +159,12 @@
     padding-top:0; padding-bottom:0;
   }
   .ev.compact .tm{ display:inline; margin-bottom:0; flex:0 0 auto; }
-  .ev.car{ border-color:var(--sunset); background:#fdf0e8; }
-  .ev.sightsee{ border-color:var(--teal); background:#e9f6f5; }
-  .ev.meal{ border-color:var(--pink); background:#fdedf0; }
-  .ev.move{ border-color:var(--blue); background:#eef1f9; }
-  .ev.hotel{ border-color:var(--purple); background:#f2eefb; }
-  .ev.note{ border-color:var(--gray); background:#f1efe9; font-weight:700; }
+  .ev.car{ background:#fdf0e8; }
+  .ev.sightsee{ background:#e9f6f5; }
+  .ev.meal{ background:#fdedf0; }
+  .ev.move{ background:#eef1f9; }
+  .ev.hotel{ background:#f2eefb; }
+  .ev.note{ background:#f1efe9; font-weight:700; }
 
   /* ---------- STAY CARDS ---------- */
   .stay{ display:flex; flex-direction:column; overflow:hidden; padding:0; }
@@ -255,20 +238,25 @@
     <div class="members">ひゅーが ・ たいせい ・ ます ・ たくみ ・ ちすわ</div>
   </div>
 
-  <!-- ============ NAV ============ -->
-  <nav class="nav">
-    <div class="nav-scroll">
-      <a href="#itinerary">旅程</a>
-      <a href="#stay">宿泊・車</a>
-      <a href="#cost-group">費用(グループ)</a>
-      <a href="#cost-personal">費用(個人)</a>
-      <a href="#packing">持ち物</a>
-      <a href="#todo">残タスク</a>
-      <a href="#links">リンク</a>
-    </div>
-  </nav>
-
   <div class="grad-line"></div>
+
+  <!-- ============ 目次 ============ -->
+  <section id="toc">
+    <div class="section-head">
+      <div><h2>目次</h2><div class="en">Contents</div></div>
+    </div>
+    <div class="card" style="padding:4px 16px;">
+      <ul class="toc">
+        <li><a href="#itinerary"><span>旅程</span><span class="go">›</span></a></li>
+        <li><a href="#stay"><span>宿泊・レンタカー</span><span class="go">›</span></a></li>
+        <li><a href="#cost-group"><span>費用(グループ)</span><span class="go">›</span></a></li>
+        <li><a href="#cost-personal"><span>費用(個人)</span><span class="go">›</span></a></li>
+        <li><a href="#packing"><span>持ち物</span><span class="go">›</span></a></li>
+        <li><a href="#todo"><span>残タスク</span><span class="go">›</span></a></li>
+        <li><a href="#links"><span>リンクまとめ</span><span class="go">›</span></a></li>
+      </ul>
+    </div>
+  </section>
 
   <!-- ============ 旅程 ============ -->
   <section id="itinerary">
