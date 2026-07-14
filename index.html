@@ -113,6 +113,7 @@
     border-radius:var(--radius) var(--radius) 0 0;
     display:block;
   }
+  .day-map{ width:100%; height:200px; }
   .day-head{
     background:var(--navy);
     color:#fff;
@@ -273,6 +274,7 @@
     <div class="day-card">
       <img class="day-photo" loading="lazy" alt="神戸の街並み"
         src="https://img.activityjapan.com/wi/kobe-toieba1.jpg">
+      <div class="day-map" id="leaflet-map-day1"></div>
       <div class="day-head first">
         <div><div class="d-date">2026.11.13 (金)</div><div class="d-title">Day 1・神戸 → 有馬温泉</div></div>
         <div class="d-tag">有馬温泉 泊</div>
@@ -305,6 +307,7 @@
     <div class="day-card">
       <img class="day-photo" loading="lazy" alt="鳴門の渦潮"
         src="https://commons.wikimedia.org/wiki/Special:FilePath/The_whirling_current_in_Naruto.JPG?width=900">
+      <div class="day-map" id="leaflet-map-day2"></div>
       <div class="day-head first">
         <div><div class="d-date">2026.11.14 (土)</div><div class="d-title">Day 2・鳴門 → 淡路島</div></div>
         <div class="d-tag">淡路島コテージ 泊</div>
@@ -340,6 +343,7 @@
     <div class="day-card">
       <img class="day-photo" loading="lazy" alt="淡路島の海岸"
         src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohama_Coast_Awaji_Island_Japan08n.jpg?width=900">
+      <div class="day-map" id="leaflet-map-day3"></div>
       <div class="day-head first">
         <div><div class="d-date">2026.11.15 (日)</div><div class="d-title">Day 3・淡路島西海岸 → 解散</div></div>
         <div class="d-tag">神戸解散</div>
@@ -587,48 +591,77 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function(){
-  var stops = [
-    {lat:34.6926, lng:135.1943, name:"三宮(ニコニコレンタカー三宮店)出発", time:"11/13(金) 11:00", color:"#e8794f"},
-    {lat:34.7969, lng:135.2469, name:"亀の井ホテル 有馬(1泊目)", time:"11/13(金) 17:00 到着", color:"#8b6fce"},
-    {lat:34.2374, lng:134.6397, name:"渦の道・鳴門公園(観潮)", time:"11/14(土) 10:30頃", color:"#2ba7a0"},
-    {lat:34.5990, lng:134.9310, name:"Awaji Seaview Resort in Nojima(2泊目)", time:"11/14(土) 17:00 到着", color:"#8b6fce"},
-    {lat:34.6926, lng:135.1943, name:"三宮(レンタカー返却・解散)", time:"11/15(日) 11:00", color:"#e8794f"}
-  ];
+  var SANNOMIYA = {lat:34.6926, lng:135.1943, name:"三宮(ニコニコレンタカー三宮店)", color:"#e8794f"};
+  var ARIMA = {lat:34.7969, lng:135.2469, name:"亀の井ホテル 有馬(1泊目)", color:"#8b6fce"};
+  var NARUTO = {lat:34.2374, lng:134.6397, name:"渦の道・鳴門公園(観潮)", color:"#2ba7a0"};
+  var AWAJI = {lat:34.5990, lng:134.9310, name:"Awaji Seaview Resort in Nojima(2泊目)", color:"#8b6fce"};
+  var KEINO = {lat:34.3567, lng:134.7825, name:"慶野松原(淡路島西海岸)", color:"#2ba7a0"};
 
-  var mapEl = document.getElementById('leaflet-map');
-  if(!mapEl || typeof L === 'undefined'){ return; }
+  function stop(base, time){
+    return {lat:base.lat, lng:base.lng, name:base.name, color:base.color, time:time};
+  }
 
-  var map = L.map(mapEl);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+  function initMap(elId, stops){
+    var mapEl = document.getElementById(elId);
+    if(!mapEl || typeof L === 'undefined'){ return; }
 
-  var bounds = [];
-  stops.forEach(function(s, i){
-    var marker = L.circleMarker([s.lat, s.lng], {
-      radius: 8, color: '#FFFFFF', weight: 2, fillColor: s.color, fillOpacity: 0.95
+    var map = L.map(mapEl);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-    marker.bindPopup('<b>' + (i + 1) + '. ' + s.name + '</b><br>' + s.time);
-    bounds.push([s.lat, s.lng]);
-  });
-  map.fitBounds(bounds, {padding: [28, 28]});
 
-  var coordsStr = stops.map(function(s){ return s.lng + ',' + s.lat; }).join(';');
-  fetch('https://router.project-osrm.org/route/v1/driving/' + coordsStr + '?overview=full&geometries=geojson')
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if(data && data.routes && data.routes[0]){
-        var coords = data.routes[0].geometry.coordinates.map(function(c){ return [c[1], c[0]]; });
-        L.polyline(coords, {color:'#1f3a4d', weight:4, opacity:0.85}).addTo(map);
-      } else {
-        throw new Error('no route');
-      }
-    })
-    .catch(function(){
-      var straight = stops.map(function(s){ return [s.lat, s.lng]; });
-      L.polyline(straight, {color:'#1f3a4d', weight:3, opacity:0.7, dashArray:'6 6'}).addTo(map);
+    var bounds = [];
+    stops.forEach(function(s, i){
+      var marker = L.circleMarker([s.lat, s.lng], {
+        radius: 8, color: '#FFFFFF', weight: 2, fillColor: s.color, fillOpacity: 0.95
+      }).addTo(map);
+      marker.bindPopup('<b>' + (i + 1) + '. ' + s.name + '</b><br>' + s.time);
+      bounds.push([s.lat, s.lng]);
     });
+    map.fitBounds(bounds, {padding: [24, 24]});
+
+    var coordsStr = stops.map(function(s){ return s.lng + ',' + s.lat; }).join(';');
+    fetch('https://router.project-osrm.org/route/v1/driving/' + coordsStr + '?overview=full&geometries=geojson')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(data && data.routes && data.routes[0]){
+          var coords = data.routes[0].geometry.coordinates.map(function(c){ return [c[1], c[0]]; });
+          L.polyline(coords, {color:'#1f3a4d', weight:4, opacity:0.85}).addTo(map);
+        } else {
+          throw new Error('no route');
+        }
+      })
+      .catch(function(){
+        var straight = stops.map(function(s){ return [s.lat, s.lng]; });
+        L.polyline(straight, {color:'#1f3a4d', weight:3, opacity:0.7, dashArray:'6 6'}).addTo(map);
+      });
+  }
+
+  initMap('leaflet-map', [
+    stop(SANNOMIYA, "11/13(金) 11:00 出発"),
+    stop(ARIMA, "11/13(金) 17:00 到着"),
+    stop(NARUTO, "11/14(土) 10:30頃"),
+    stop(AWAJI, "11/14(土) 17:00 到着"),
+    stop(SANNOMIYA, "11/15(日) 11:00 返却・解散")
+  ]);
+
+  initMap('leaflet-map-day1', [
+    stop(SANNOMIYA, "11:00 出発"),
+    stop(ARIMA, "17:00 到着")
+  ]);
+
+  initMap('leaflet-map-day2', [
+    stop(ARIMA, "8:30 出発"),
+    stop(NARUTO, "10:30頃"),
+    stop(AWAJI, "17:00 到着")
+  ]);
+
+  initMap('leaflet-map-day3', [
+    stop(AWAJI, "10:00 出発"),
+    stop(KEINO, "10:00-11:00頃"),
+    stop(SANNOMIYA, "11:00 返却・解散")
+  ]);
 })();
 </script>
 </body>
