@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>淡路島・鳴門・有馬温泉の旅 2026.11.13-15</title>
+<title>マテ淡路島旅行 2026.11.13-15</title>
 <meta name="description" content="神戸・有馬温泉・鳴門・淡路島 2泊3日の旅のしおり">
 <style>
   :root{
@@ -56,10 +56,6 @@
     content:"";
     position:absolute; inset:0;
     background:linear-gradient(180deg, rgba(19,42,56,0.05), transparent 40%);
-  }
-  .hero-eyebrow{
-    font-size:12.5px; letter-spacing:.14em; font-weight:700; opacity:.9;
-    text-transform:uppercase;
   }
   .hero h1{
     margin:10px 0 6px; font-size:26px; line-height:1.35; font-weight:800;
@@ -174,6 +170,12 @@
     overflow:hidden;
   }
   .ev .tm{ display:block; font-size:10.5px; font-weight:800; opacity:.65; margin-bottom:1px; }
+  .ev.compact{
+    display:flex; align-items:center; gap:6px;
+    white-space:nowrap; text-overflow:ellipsis; overflow:hidden;
+    padding-top:0; padding-bottom:0;
+  }
+  .ev.compact .tm{ display:inline; margin-bottom:0; flex:0 0 auto; }
   .ev.car{ border-color:var(--sunset); background:#fdf0e8; }
   .ev.sightsee{ border-color:var(--teal); background:#e9f6f5; }
   .ev.meal{ border-color:var(--pink); background:#fdedf0; }
@@ -196,7 +198,7 @@
   dl.info div{ display:flex; padding:5px 0; border-bottom:1px dashed var(--line); gap:10px;}
   dl.info div:last-child{ border-bottom:none; }
   dl.info dt{ flex:0 0 82px; color:var(--sub); font-weight:700; }
-  dl.info dd{ margin:0; flex:1; }
+  dl.info dd{ margin:0; flex:1; min-width:0; overflow-wrap:anywhere; }
   dl.info a{ color:var(--teal-deep); }
 
   /* ---------- TABLES ---------- */
@@ -248,9 +250,8 @@
 
   <!-- ============ HERO ============ -->
   <div class="hero">
-    <div class="hero-eyebrow">Kobe · Arima Onsen · Naruto · Awaji Island</div>
-    <h1>淡路島・鳴門<br>有馬温泉の旅</h1>
-    <div class="dates">2026.11.13 Fri &ndash; 11.15 Sun ・ 2泊3日</div>
+    <h1>マテ淡路島旅行</h1>
+    <div class="dates">2026.11.13(金) &ndash; 11.15(日) ・ 2泊3日</div>
     <div class="members">ひゅーが ・ たいせい ・ ます ・ たくみ ・ ちすわ</div>
   </div>
 
@@ -293,7 +294,7 @@
             <span style="top:624px">21</span><span style="top:676px">22</span><span style="top:728px">23</span>
           </div>
           <div class="t-grid" style="height:728px;">
-            <div class="ev car" style="top:104px;height:26px;"><span class="tm">11:00-11:30</span>三宮集合・レンタカー受取</div>
+            <div class="ev car compact" style="top:104px;height:26px;"><span class="tm">11:00-11:30</span>三宮集合・レンタカー受取</div>
             <div class="ev sightsee" style="top:130px;height:78px;"><span class="tm">11:30-13:00</span>神戸観光①（北野異人館・南京町など）</div>
             <div class="ev meal" style="top:208px;height:52px;"><span class="tm">13:00-14:00</span>昼食（神戸グルメ）</div>
             <div class="ev sightsee" style="top:260px;height:78px;"><span class="tm">14:00-15:30</span>神戸観光②（メリケンパーク・ハーバーランド）</div>
@@ -301,7 +302,7 @@
             <div class="ev hotel" style="top:416px;height:52px;"><span class="tm">17:00-18:00</span>亀の井ホテル有馬 チェックイン</div>
             <div class="ev meal" style="top:468px;height:78px;"><span class="tm">18:00-19:30</span>夕食（土地の恵み会席）</div>
             <div class="ev sightsee" style="top:546px;height:156px;"><span class="tm">19:30-22:30</span>温泉街散策・外湯めぐり（金の湯・銀の湯）</div>
-            <div class="ev note" style="top:702px;height:26px;"><span class="tm">23:00</span>門限（ホテル帰着）</div>
+            <div class="ev note compact" style="top:702px;height:26px;"><span class="tm">23:00</span>門限（ホテル帰着）</div>
           </div>
         </div>
       </div>
@@ -327,7 +328,7 @@
           </div>
           <div class="t-grid" style="height:832px;">
             <div class="ev meal" style="top:0px;height:52px;"><span class="tm">7:00-8:00</span>朝食</div>
-            <div class="ev note" style="top:52px;height:26px;"><span class="tm">8:00-8:30</span>チェックアウト準備</div>
+            <div class="ev note compact" style="top:52px;height:26px;"><span class="tm">8:00-8:30</span>チェックアウト準備</div>
             <div class="ev move" style="top:78px;height:104px;"><span class="tm">8:30-10:30</span>鳴門公園へ移動（神戸淡路鳴門自動車道）</div>
             <div class="ev sightsee" style="top:182px;height:78px;"><span class="tm">10:30-12:00</span>鳴門観潮（渦の道 or 観潮船）</div>
             <div class="ev meal" style="top:260px;height:52px;"><span class="tm">12:00-13:00</span>昼食（鳴門・淡路島）</div>
@@ -361,7 +362,7 @@
             <div class="ev meal" style="top:0px;height:104px;"><span class="tm">7:00-9:00</span>起床・朝食（各自）</div>
             <div class="ev note" style="top:104px;height:52px;"><span class="tm">9:00-10:00</span>コテージ片付け・チェックアウト準備</div>
             <div class="ev sightsee" style="top:156px;height:52px;"><span class="tm">10:00-11:00</span>チェックアウト → 淡路島西海岸ドライブ（慶野松原など）</div>
-            <div class="ev car" style="top:208px;height:26px;"><span class="tm">11:00</span>三宮着・レンタカー返却</div>
+            <div class="ev car compact" style="top:208px;height:26px;"><span class="tm">11:00</span>三宮着・レンタカー返却</div>
             <div class="ev note" style="top:234px;height:78px;"><span class="tm">11:30-</span>神戸で解散・各自帰路へ</div>
           </div>
         </div>
@@ -444,22 +445,6 @@
           <tr class="total"><td>合計</td><td></td><td class="num">152,098円</td></tr>
         </tbody>
       </table>
-      <div class="note">1人あたり約 <b>30,420円</b>（5名で均等割り、端数2円のみ調整）</div>
-    </div>
-
-    <div class="card">
-      <h3 style="margin-top:0;font-size:14.5px;">精算早見表</h3>
-      <table>
-        <thead><tr><th>メンバー</th><th class="num">立替額</th><th class="num">負担額(1/5)</th><th class="num">精算</th></tr></thead>
-        <tbody>
-          <tr><td>ます</td><td class="num">87,728円</td><td class="num">30,420円</td><td class="num plus">+57,308（受取）</td></tr>
-          <tr><td>ちすわ</td><td class="num">45,450円</td><td class="num">30,420円</td><td class="num plus">+15,030（受取）</td></tr>
-          <tr><td>たいせい</td><td class="num">18,920円</td><td class="num">30,420円</td><td class="num minus">-11,500（支払）</td></tr>
-          <tr><td>ひゅーが</td><td class="num">0円</td><td class="num">30,420円</td><td class="num minus">-30,420（支払）</td></tr>
-          <tr><td>たくみ</td><td class="num">0円</td><td class="num">30,418円</td><td class="num minus">-30,418（支払）</td></tr>
-        </tbody>
-      </table>
-      <div class="note">たくみのみ端数調整で30,418円（他4名は30,420円）。送金アプリ or 現地精算でOK。</div>
     </div>
   </section>
 
