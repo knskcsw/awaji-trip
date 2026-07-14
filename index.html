@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>マテ淡路島旅行 2026.11.13-15</title>
 <meta name="description" content="神戸・有馬温泉・鳴門・淡路島 2泊3日の旅のしおり">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   :root{
     --bg:#f4f1ea;
@@ -108,7 +109,7 @@
   /* ---------- DAY / TIMELINE ---------- */
   .day-card{ margin-bottom:22px; }
   .day-photo{
-    width:100%; height:170px; object-fit:contain; background:#e7e0d3;
+    width:100%; height:auto;
     border-radius:var(--radius) var(--radius) 0 0;
     display:block;
   }
@@ -165,7 +166,7 @@
 
   /* ---------- STAY CARDS ---------- */
   .stay{ display:flex; flex-direction:column; overflow:hidden; padding:0; }
-  .stay img{ width:100%; height:190px; object-fit:contain; background:#e7e0d3; }
+  .stay img{ width:100%; height:auto; display:block; }
   .stay .body{ padding:14px 16px 16px; }
   .stay .badge{
     display:inline-block; font-size:11px; font-weight:800; color:#fff;
@@ -245,6 +246,7 @@
     <div class="card" style="padding:4px 16px;">
       <ul class="toc">
         <li><a href="#itinerary"><span>旅程</span><span class="go">›</span></a></li>
+        <li><a href="#map"><span>地図・移動ルート</span><span class="go">›</span></a></li>
         <li><a href="#stay"><span>宿泊・レンタカー</span><span class="go">›</span></a></li>
         <li><a href="#cost-group"><span>費用(グループ)</span><span class="go">›</span></a></li>
         <li><a href="#cost-personal"><span>費用(個人)</span><span class="go">›</span></a></li>
@@ -356,6 +358,17 @@
     </div>
   </section>
 
+  <!-- ============ 地図・移動ルート ============ -->
+  <section id="map">
+    <div class="section-head">
+      <div><h2>地図・移動ルート</h2><div class="en">Map &amp; Route</div></div>
+    </div>
+    <div class="card" style="padding:12px;">
+      <div id="leaflet-map" style="height:340px; border-radius:12px; overflow:hidden;"></div>
+      <div class="note" style="margin-top:10px;">地図: OpenStreetMap／ルート計算: OSRM(読み込みに数秒かかる場合があります)</div>
+    </div>
+  </section>
+
   <!-- ============ 宿泊・レンタカー ============ -->
   <section id="stay">
     <div class="section-head">
@@ -375,6 +388,7 @@
           <div><dt>電話</dt><dd><a href="tel:078-904-0951">078-904-0951</a></dd></div>
           <div><dt>料金</dt><dd>87,728円（税込97,475円 − クーポン9,747円）</dd></div>
           <div><dt>備考</dt><dd>門限23:00／入湯税 大人150円は現地払い</dd></div>
+          <div><dt>地図</dt><dd><a href="https://maps.app.goo.gl/jz82dDnDPtBdqcCo6?g_st=ic" target="_blank" rel="noopener">Googleマップで開く</a></dd></div>
         </dl>
       </div>
     </div>
@@ -392,6 +406,7 @@
           <div><dt>電話</dt><dd><a href="tel:06-6563-9820">06-6563-9820</a></dd></div>
           <div><dt>料金</dt><dd>45,450円（税込50,500円 − クーポン5,050円）</dd></div>
           <div><dt>備考</dt><dd>食事なしプラン（BBQは各自食材持込・買い出し）</dd></div>
+          <div><dt>地図</dt><dd><a href="https://maps.app.goo.gl/VHwyPpJNFedyBkgLA?g_st=ic" target="_blank" rel="noopener">Googleマップで開く</a></dd></div>
         </dl>
       </div>
     </div>
@@ -410,6 +425,7 @@
           <div><dt>補償</dt><dd>免責補償プラス</dd></div>
           <div><dt>料金</dt><dd>18,920円（会員価格）</dd></div>
           <div><dt>備考</dt><dd>出発・帰着は予約者本人の来店が必要／同乗運転する人は免許証コピー持参</dd></div>
+          <div><dt>地図</dt><dd><a href="https://maps.app.goo.gl/2f9vXuHAgbmUGib8A?g_st=ic" target="_blank" rel="noopener">Googleマップで開く</a></dd></div>
         </dl>
       </div>
     </div>
@@ -566,6 +582,53 @@
       });
     });
   });
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+  var stops = [
+    {lat:34.6926, lng:135.1943, name:"三宮(ニコニコレンタカー三宮店)出発", time:"11/13(金) 11:00", color:"#e8794f"},
+    {lat:34.7969, lng:135.2469, name:"亀の井ホテル 有馬(1泊目)", time:"11/13(金) 17:00 到着", color:"#8b6fce"},
+    {lat:34.2374, lng:134.6397, name:"渦の道・鳴門公園(観潮)", time:"11/14(土) 10:30頃", color:"#2ba7a0"},
+    {lat:34.5990, lng:134.9310, name:"Awaji Seaview Resort in Nojima(2泊目)", time:"11/14(土) 17:00 到着", color:"#8b6fce"},
+    {lat:34.6926, lng:135.1943, name:"三宮(レンタカー返却・解散)", time:"11/15(日) 11:00", color:"#e8794f"}
+  ];
+
+  var mapEl = document.getElementById('leaflet-map');
+  if(!mapEl || typeof L === 'undefined'){ return; }
+
+  var map = L.map(mapEl);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  var bounds = [];
+  stops.forEach(function(s, i){
+    var marker = L.circleMarker([s.lat, s.lng], {
+      radius: 8, color: '#FFFFFF', weight: 2, fillColor: s.color, fillOpacity: 0.95
+    }).addTo(map);
+    marker.bindPopup('<b>' + (i + 1) + '. ' + s.name + '</b><br>' + s.time);
+    bounds.push([s.lat, s.lng]);
+  });
+  map.fitBounds(bounds, {padding: [28, 28]});
+
+  var coordsStr = stops.map(function(s){ return s.lng + ',' + s.lat; }).join(';');
+  fetch('https://router.project-osrm.org/route/v1/driving/' + coordsStr + '?overview=full&geometries=geojson')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data && data.routes && data.routes[0]){
+        var coords = data.routes[0].geometry.coordinates.map(function(c){ return [c[1], c[0]]; });
+        L.polyline(coords, {color:'#1f3a4d', weight:4, opacity:0.85}).addTo(map);
+      } else {
+        throw new Error('no route');
+      }
+    })
+    .catch(function(){
+      var straight = stops.map(function(s){ return [s.lat, s.lng]; });
+      L.polyline(straight, {color:'#1f3a4d', weight:3, opacity:0.7, dashArray:'6 6'}).addTo(map);
+    });
+})();
 </script>
 </body>
 </html>
