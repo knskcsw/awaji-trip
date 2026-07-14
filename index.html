@@ -241,8 +241,8 @@
     </div>
     <div class="card" style="padding:4px 16px;">
       <ul class="toc">
-        <li><a href="#itinerary"><span>旅程</span><span class="go">›</span></a></li>
         <li><a href="#map"><span>地図・移動ルート</span><span class="go">›</span></a></li>
+        <li><a href="#itinerary"><span>旅程</span><span class="go">›</span></a></li>
         <li><a href="#stay"><span>宿泊・レンタカー</span><span class="go">›</span></a></li>
         <li><a href="#cost-group"><span>費用(グループ)</span><span class="go">›</span></a></li>
         <li><a href="#cost-personal"><span>費用(個人)</span><span class="go">›</span></a></li>
@@ -250,6 +250,16 @@
         <li><a href="#todo"><span>残タスク</span><span class="go">›</span></a></li>
         <li><a href="#links"><span>リンクまとめ</span><span class="go">›</span></a></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ============ 地図・移動ルート ============ -->
+  <section id="map">
+    <div class="section-head">
+      <div><h2>地図・移動ルート</h2><div class="en">Map &amp; Route</div></div>
+    </div>
+    <div class="card" style="padding:12px;">
+      <div id="leaflet-map" style="height:340px; border-radius:12px; overflow:hidden;"></div>
     </div>
   </section>
 
@@ -351,16 +361,6 @@
         </div>
         <div class="note warn">レンタカー返却は<b>11:00必須</b>。ドライブ時間が延びると間に合わないので、10:00にはコテージを出発できるようにしましょう。</div>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ 地図・移動ルート ============ -->
-  <section id="map">
-    <div class="section-head">
-      <div><h2>地図・移動ルート</h2><div class="en">Map &amp; Route</div></div>
-    </div>
-    <div class="card" style="padding:12px;">
-      <div id="leaflet-map" style="height:340px; border-radius:12px; overflow:hidden;"></div>
     </div>
   </section>
 
