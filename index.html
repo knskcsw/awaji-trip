@@ -114,6 +114,22 @@
     display:block;
   }
   .day-map{ width:100%; height:200px; }
+  .leaflet-tooltip.map-num-tooltip{
+    background:transparent; border:none; box-shadow:none;
+    color:#fff; font-weight:800; font-size:11px; padding:0;
+  }
+  .leaflet-tooltip.map-num-tooltip::before{ display:none; }
+  ul.route-legend{ list-style:none; margin:10px 0 0; padding:0; }
+  ul.route-legend li{ display:flex; align-items:center; gap:10px; padding:6px 2px; border-bottom:1px solid var(--line); }
+  ul.route-legend li:last-child{ border-bottom:none; }
+  ul.route-legend .num{
+    flex:0 0 20px; width:20px; height:20px; border-radius:50%;
+    color:#fff; font-size:11px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+  }
+  ul.route-legend .tx{ font-size:12.5px; }
+  ul.route-legend .tx b{ display:block; }
+  ul.route-legend .tx small{ color:var(--sub); font-size:11px; }
   .day-head{
     background:var(--navy);
     color:#fff;
@@ -261,6 +277,7 @@
     </div>
     <div class="card" style="padding:12px;">
       <div id="leaflet-map" style="height:340px; border-radius:12px; overflow:hidden;"></div>
+      <ul class="route-legend" id="route-legend"></ul>
     </div>
   </section>
 
@@ -275,6 +292,7 @@
       <img class="day-photo" loading="lazy" alt="神戸の街並み"
         src="https://img.activityjapan.com/wi/kobe-toieba1.jpg">
       <div class="day-map" id="leaflet-map-day1"></div>
+      <div style="padding:2px 16px 10px; background:#fff;"><ul class="route-legend" id="route-legend-day1"></ul></div>
       <div class="day-head first">
         <div><div class="d-date">2026.11.13 (金)</div><div class="d-title">Day 1・神戸 → 有馬温泉</div></div>
         <div class="d-tag">有馬温泉 泊</div>
@@ -308,6 +326,7 @@
       <img class="day-photo" loading="lazy" alt="鳴門の渦潮"
         src="https://commons.wikimedia.org/wiki/Special:FilePath/The_whirling_current_in_Naruto.JPG?width=900">
       <div class="day-map" id="leaflet-map-day2"></div>
+      <div style="padding:2px 16px 10px; background:#fff;"><ul class="route-legend" id="route-legend-day2"></ul></div>
       <div class="day-head first">
         <div><div class="d-date">2026.11.14 (土)</div><div class="d-title">Day 2・鳴門 → 淡路島</div></div>
         <div class="d-tag">淡路島コテージ 泊</div>
@@ -344,6 +363,7 @@
       <img class="day-photo" loading="lazy" alt="淡路島の海岸"
         src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohama_Coast_Awaji_Island_Japan08n.jpg?width=900">
       <div class="day-map" id="leaflet-map-day3"></div>
+      <div style="padding:2px 16px 10px; background:#fff;"><ul class="route-legend" id="route-legend-day3"></ul></div>
       <div class="day-head first">
         <div><div class="d-date">2026.11.15 (日)</div><div class="d-title">Day 3・淡路島西海岸 → 解散</div></div>
         <div class="d-tag">神戸解散</div>
@@ -591,17 +611,19 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function(){
-  var SANNOMIYA = {lat:34.6926, lng:135.1943, name:"三宮(ニコニコレンタカー三宮店)", color:"#e8794f"};
-  var ARIMA = {lat:34.7969, lng:135.2469, name:"亀の井ホテル 有馬(1泊目)", color:"#8b6fce"};
-  var NARUTO = {lat:34.2374, lng:134.6397, name:"渦の道・鳴門公園(観潮)", color:"#2ba7a0"};
-  var AWAJI = {lat:34.5990, lng:134.9310, name:"Awaji Seaview Resort in Nojima(2泊目)", color:"#8b6fce"};
-  var KEINO = {lat:34.3567, lng:134.7825, name:"慶野松原(淡路島西海岸)", color:"#2ba7a0"};
+  var SANNOMIYA = {lat:34.6926, lng:135.1943, name:"三宮(ニコニコレンタカー三宮店)"};
+  var ARIMA = {lat:34.7969, lng:135.2469, name:"亀の井ホテル 有馬(1泊目)"};
+  var NARUTO = {lat:34.2374, lng:134.6397, name:"渦の道・鳴門公園(観潮)"};
+  var AWAJI = {lat:34.5990, lng:134.9310, name:"Awaji Seaview Resort in Nojima(2泊目)"};
+  var KEINO = {lat:34.3567, lng:134.7825, name:"慶野松原(淡路島西海岸)"};
+
+  var PALETTE = ["#2ba7a0", "#d9a441", "#e8794f", "#8b6fce", "#1f3a4d"];
 
   function stop(base, time){
-    return {lat:base.lat, lng:base.lng, name:base.name, color:base.color, time:time};
+    return {lat:base.lat, lng:base.lng, name:base.name, time:time};
   }
 
-  function initMap(elId, stops){
+  function initMap(elId, legendId, stops){
     var mapEl = document.getElementById(elId);
     if(!mapEl || typeof L === 'undefined'){ return; }
 
@@ -612,14 +634,21 @@
     }).addTo(map);
 
     var bounds = [];
+    var legendEl = legendId ? document.getElementById(legendId) : null;
+    var legendHtml = '';
     stops.forEach(function(s, i){
+      var color = PALETTE[i % PALETTE.length];
       var marker = L.circleMarker([s.lat, s.lng], {
-        radius: 8, color: '#FFFFFF', weight: 2, fillColor: s.color, fillOpacity: 0.95
+        radius: 9, color: '#FFFFFF', weight: 2, fillColor: color, fillOpacity: 0.95
       }).addTo(map);
+      marker.bindTooltip(String(i + 1), {permanent:true, direction:'center', className:'map-num-tooltip'});
       marker.bindPopup('<b>' + (i + 1) + '. ' + s.name + '</b><br>' + s.time);
       bounds.push([s.lat, s.lng]);
+      legendHtml += '<li><span class="num" style="background:' + color + ';">' + (i + 1) + '</span>' +
+        '<span class="tx"><b>' + s.name + '</b><small>' + s.time + '</small></span></li>';
     });
     map.fitBounds(bounds, {padding: [24, 24]});
+    if(legendEl){ legendEl.innerHTML = legendHtml; }
 
     var coordsStr = stops.map(function(s){ return s.lng + ',' + s.lat; }).join(';');
     fetch('https://router.project-osrm.org/route/v1/driving/' + coordsStr + '?overview=full&geometries=geojson')
@@ -627,18 +656,18 @@
       .then(function(data){
         if(data && data.routes && data.routes[0]){
           var coords = data.routes[0].geometry.coordinates.map(function(c){ return [c[1], c[0]]; });
-          L.polyline(coords, {color:'#1f3a4d', weight:4, opacity:0.85}).addTo(map);
+          L.polyline(coords, {color:'#1f3a4d', weight:4, opacity:0.75}).addTo(map);
         } else {
           throw new Error('no route');
         }
       })
       .catch(function(){
         var straight = stops.map(function(s){ return [s.lat, s.lng]; });
-        L.polyline(straight, {color:'#1f3a4d', weight:3, opacity:0.7, dashArray:'6 6'}).addTo(map);
+        L.polyline(straight, {color:'#1f3a4d', weight:3, opacity:0.6, dashArray:'6 6'}).addTo(map);
       });
   }
 
-  initMap('leaflet-map', [
+  initMap('leaflet-map', 'route-legend', [
     stop(SANNOMIYA, "11/13(金) 11:00 出発"),
     stop(ARIMA, "11/13(金) 17:00 到着"),
     stop(NARUTO, "11/14(土) 10:30頃"),
@@ -646,18 +675,18 @@
     stop(SANNOMIYA, "11/15(日) 11:00 返却・解散")
   ]);
 
-  initMap('leaflet-map-day1', [
+  initMap('leaflet-map-day1', 'route-legend-day1', [
     stop(SANNOMIYA, "11:00 出発"),
     stop(ARIMA, "17:00 到着")
   ]);
 
-  initMap('leaflet-map-day2', [
+  initMap('leaflet-map-day2', 'route-legend-day2', [
     stop(ARIMA, "8:30 出発"),
     stop(NARUTO, "10:30頃"),
     stop(AWAJI, "17:00 到着")
   ]);
 
-  initMap('leaflet-map-day3', [
+  initMap('leaflet-map-day3', 'route-legend-day3', [
     stop(AWAJI, "10:00 出発"),
     stop(KEINO, "10:00-11:00頃"),
     stop(SANNOMIYA, "11:00 返却・解散")
