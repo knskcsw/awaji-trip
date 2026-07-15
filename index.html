@@ -116,15 +116,24 @@
   .day-map{ width:100%; height:200px; }
   .meal-gallery{ display:flex; gap:6px; margin-top:8px; }
   .meal-gallery img{ flex:1; width:0; height:84px; object-fit:cover; border-radius:8px; }
+  .meal-slider-wrap{ position:relative; margin-top:8px; }
   .meal-slider{
     display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
-    gap:0; margin-top:8px; border-radius:10px; -webkit-overflow-scrolling:touch;
+    gap:0; border-radius:10px; -webkit-overflow-scrolling:touch;
   }
   .meal-slider img{
     scroll-snap-align:start; flex:0 0 100%; width:100%; height:190px;
     object-fit:cover;
   }
-  .meal-slider-hint{ font-size:10.5px; color:var(--sub); margin-top:3px; }
+  .meal-slider-dots{
+    position:absolute; left:0; right:0; bottom:9px;
+    display:flex; justify-content:center; gap:6px; pointer-events:none;
+  }
+  .meal-slider-dots .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(255,255,255,0.55); box-shadow:0 0 2px rgba(0,0,0,0.4);
+  }
+  .meal-slider-dots .dot.active{ background:#fff; }
   .leaflet-tooltip.map-num-tooltip{
     background:transparent; border:none; box-shadow:none;
     color:#fff; font-weight:800; font-size:11px; padding:0;
@@ -204,7 +213,7 @@
   .stay .badge.car{ background:var(--sunset); }
   .stay h3{ margin:0 0 6px; font-size:17px; }
   dl.info{ margin:10px 0 0; font-size:13px; }
-  dl.info div{ display:flex; padding:5px 0; border-bottom:1px dashed var(--line); gap:10px;}
+  dl.info div{ display:flex; padding:5px 0; gap:10px;}
   dl.info div:last-child{ border-bottom:none; }
   dl.info dt{ flex:0 0 82px; color:var(--sub); font-weight:700; }
   dl.info dd{ margin:0; flex:1; min-width:0; overflow-wrap:anywhere; }
@@ -414,13 +423,10 @@
         <span class="badge">1泊目</span>
         <h3>有馬温泉 亀の井ホテル 有馬</h3>
         <dl class="info">
-          <div><dt>日程</dt><dd>2026-11-13(金) 17:00 IN → 11-14(土) OUT</dd></div>
-          <div><dt>部屋</dt><dd>和室10畳（5名）／早期割28 土地の恵み会席</dd></div>
-          <div><dt>住所</dt><dd>兵庫県神戸市北区有馬町1617-1</dd></div>
+          <div><dt>日程</dt><dd>11-13(金) 17:00 IN → 11-14(土) OUT</dd></div>
+          <div><dt>プラン</dt><dd>和室10畳(5名)早期割28 土地の恵み会席</dd></div>
           <div><dt>電話</dt><dd><a href="tel:078-904-0951">078-904-0951</a></dd></div>
-          <div><dt>料金</dt><dd>87,728円（税込97,475円 − クーポン9,747円）</dd></div>
-          <div><dt>夕食</dt><dd>17:30〜21:00（L.O.20:30）／土地の恵み会席<br>
-            ＜お品書き・2026年9〜11月＞<br>
+          <div><dt>夕食</dt><dd>17:30〜21:00（L.O.20:30）<br>
             <b>前菜</b><br>
             <b>太閤膳</b>　兵庫の恵み九種盛り<br>
             <b>御造里</b>　三種盛り<br>
@@ -430,20 +436,25 @@
             <b>香の物</b>　二種盛り<br>
             <b>留椀</b>　赤出汁<br>
             <b>デザート</b>　マロンプリン
-            <div class="meal-slider">
-              <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/14220349.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="夕食（土地の恵み会席）" loading="lazy">
-              <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/14220391.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="夕食（土地の恵み会席）" loading="lazy">
+            <div class="meal-slider-wrap">
+              <div class="meal-slider" data-slider>
+                <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/14220349.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="夕食（土地の恵み会席）" loading="lazy">
+                <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/14220391.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="夕食（土地の恵み会席）" loading="lazy">
+              </div>
+              <div class="meal-slider-dots" data-dots>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+              </div>
             </div>
-            <div class="meal-slider-hint">← スワイプで写真切り替え →</div>
           </dd></div>
           <div><dt>朝食</dt><dd>07:00〜09:00（L.O.08:30）／和洋ビュッフェ（宿泊人数によりお膳の場合あり）
             <div class="meal-gallery">
               <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/13969437.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="朝食（和洋ビュッフェ）" loading="lazy">
             </div>
           </dd></div>
-          <div><dt>駐車場</dt><dd>本館地下駐車場（無料・高さ制限2.1m）。工事のため第2駐車場は利用不可、満車時は近隣コインパーキング案内の場合あり</dd></div>
-          <div><dt>アメニティ</dt><dd>浴衣・タオル・シャンプー類・歯ブラシ・ドライヤー等、館内浴場（天然温泉「金泉」）あり</dd></div>
-          <div><dt>備考</dt><dd>門限23:00／入湯税 大人150円は現地払い</dd></div>
+          <div><dt>駐車場</dt><dd>あり</dd></div>
+          <div><dt>アメニティ</dt><dd>浴衣<br>タオル<br>シャンプー類<br>歯ブラシ<br>ドライヤー<br>館内浴場（天然温泉「金泉」）</dd></div>
+          <div><dt>備考</dt><dd>門限23:00</dd></div>
           <div><dt>地図</dt><dd><a href="https://maps.app.goo.gl/jz82dDnDPtBdqcCo6?g_st=ic" target="_blank" rel="noopener">Googleマップで開く</a></dd></div>
           <div><dt>予約ページ</dt><dd><a href="https://www.ikyu.com/00003428/11681848/10303125/" target="_blank" rel="noopener">一休.comで見る</a></dd></div>
           <div><dt>予約確認メール</dt><dd><a href="reservation-arima-hotel.pdf" target="_blank" rel="noopener">PDFを見る（個人情報は除いています）</a></dd></div>
@@ -458,11 +469,9 @@
         <span class="badge night2">2泊目</span>
         <h3>Awaji Seaview Resort in Nojima</h3>
         <dl class="info">
-          <div><dt>日程</dt><dd>2026-11-14(土) 17:00 IN → 11-15(日) OUT</dd></div>
+          <div><dt>日程</dt><dd>11-14(土) 17:00 IN → 11-15(日) OUT</dd></div>
           <div><dt>部屋</dt><dd>野島ログハウス（貸切・7名可／5名利用）庭でBBQ可</dd></div>
-          <div><dt>住所</dt><dd>兵庫県淡路市野島貴船23-8</dd></div>
           <div><dt>電話</dt><dd><a href="tel:06-6563-9820">06-6563-9820</a></dd></div>
-          <div><dt>料金</dt><dd>45,450円（税込50,500円 − クーポン5,050円）</dd></div>
           <div><dt>食事</dt><dd>食事なしプラン（BBQは各自食材持込・買い出し）</dd></div>
           <div><dt>アクセス</dt><dd>淡路ICから車で約6分／住所だけではGoogleマップで正確な位置が出ないため要注意（下記マニュアル参照）</dd></div>
           <div><dt>駐車場</dt><dd>敷地内駐車場（縦列2台まで、黄色い枠内のみ）。敷地外・隣地への駐車は禁止</dd></div>
@@ -674,6 +683,22 @@
         localStorage.setItem(key, JSON.stringify(saved));
       });
     });
+  });
+
+  document.querySelectorAll('[data-slider]').forEach(function(slider){
+    var wrap = slider.closest('.meal-slider-wrap');
+    var dots = wrap ? wrap.querySelectorAll('[data-dots] .dot') : [];
+    if(!dots.length) return;
+    var imgs = slider.querySelectorAll('img');
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var idx = Array.prototype.indexOf.call(imgs, entry.target);
+          dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+        }
+      });
+    }, { root: slider, threshold: 0.6 });
+    imgs.forEach(function(img){ observer.observe(img); });
   });
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
