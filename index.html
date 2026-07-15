@@ -116,6 +116,15 @@
   .day-map{ width:100%; height:200px; }
   .meal-gallery{ display:flex; gap:6px; margin-top:8px; }
   .meal-gallery img{ flex:1; width:0; height:84px; object-fit:cover; border-radius:8px; }
+  .meal-slider{
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    gap:0; margin-top:8px; border-radius:10px; -webkit-overflow-scrolling:touch;
+  }
+  .meal-slider img{
+    scroll-snap-align:start; flex:0 0 100%; width:100%; height:190px;
+    object-fit:cover;
+  }
+  .meal-slider-hint{ font-size:10.5px; color:var(--sub); margin-top:3px; }
   .leaflet-tooltip.map-num-tooltip{
     background:transparent; border:none; box-shadow:none;
     color:#fff; font-weight:800; font-size:11px; padding:0;
@@ -410,12 +419,8 @@
           <div><dt>住所</dt><dd>兵庫県神戸市北区有馬町1617-1</dd></div>
           <div><dt>電話</dt><dd><a href="tel:078-904-0951">078-904-0951</a></dd></div>
           <div><dt>料金</dt><dd>87,728円（税込97,475円 − クーポン9,747円）</dd></div>
-          <div><dt>食事</dt><dd>夕食 17:30〜21:00（L.O.20:30）／朝食 和洋ビュッフェ 07:00〜09:00（L.O.08:30、宿泊人数によりお膳の場合あり）
-            <div class="meal-gallery">
-              <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/13969437.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="朝食（和洋ビュッフェ）" loading="lazy">
-            </div>
-          </dd></div>
-          <div><dt>お品書き</dt><dd>＜土地の恵み会席・2026年9〜11月＞<br>
+          <div><dt>夕食</dt><dd>17:30〜21:00（L.O.20:30）／土地の恵み会席<br>
+            ＜お品書き・2026年9〜11月＞<br>
             <b>前菜</b><br>
             <b>太閤膳</b>　兵庫の恵み九種盛り<br>
             <b>御造里</b>　三種盛り<br>
@@ -425,9 +430,15 @@
             <b>香の物</b>　二種盛り<br>
             <b>留椀</b>　赤出汁<br>
             <b>デザート</b>　マロンプリン
-            <div class="meal-gallery">
+            <div class="meal-slider">
               <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/14220349.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="夕食（土地の恵み会席）" loading="lazy">
               <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/14220391.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="夕食（土地の恵み会席）" loading="lazy">
+            </div>
+            <div class="meal-slider-hint">← スワイプで写真切り替え →</div>
+          </dd></div>
+          <div><dt>朝食</dt><dd>07:00〜09:00（L.O.08:30）／和洋ビュッフェ（宿泊人数によりお膳の場合あり）
+            <div class="meal-gallery">
+              <img src="https://www.img-ikyu.com/contents/common/image/acc8/00003428/2/org/13969437.jpg?auto=compress,format&lossless=0&fit=crop&w=795&h=596" alt="朝食（和洋ビュッフェ）" loading="lazy">
             </div>
           </dd></div>
           <div><dt>駐車場</dt><dd>本館地下駐車場（無料・高さ制限2.1m）。工事のため第2駐車場は利用不可、満車時は近隣コインパーキング案内の場合あり</dd></div>
