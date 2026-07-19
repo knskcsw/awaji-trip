@@ -25,6 +25,7 @@
     --gray:#a9a297;
     --radius:18px;
     --shadow: 0 8px 24px rgba(31,58,77,0.10), 0 2px 6px rgba(31,58,77,0.06);
+    --hour-h:52px;
     font-size:16px;
   }
   *{box-sizing:border-box;}
@@ -176,19 +177,20 @@
   }
   .t-grid{
     position:relative; flex:1;
-    background-image:repeating-linear-gradient(to bottom, var(--line) 0, var(--line) 1px, transparent 1px, transparent 52px);
+    background-image:repeating-linear-gradient(to bottom, var(--line) 0, var(--line) 1px, transparent 1px, transparent var(--hour-h));
     border-left:1px solid var(--line);
     margin-left:6px;
   }
   .ev{
     position:absolute; left:4px; right:0;
     border-radius:9px;
-    padding:5px 9px;
+    padding:5px 9px 5px 11px;
     font-size:12px;
     font-weight:600;
     color:var(--ink);
     background:#fff;
     border:1px solid var(--line);
+    border-left:3px solid var(--gray);
     box-shadow:0 -3px 0 0 var(--card);
     overflow:hidden;
   }
@@ -199,7 +201,18 @@
     padding-top:0; padding-bottom:0;
   }
   .ev.compact .tm{ display:inline; margin-bottom:0; flex:0 0 auto; }
-  .ev.note{ font-weight:700; color:var(--sub); }
+  .ev.meal{ border-left-color:var(--gold); background:linear-gradient(0deg, rgba(217,164,65,.08), rgba(217,164,65,.08)), #fff; }
+  .ev.sightsee{ border-left-color:var(--teal); background:linear-gradient(0deg, rgba(43,167,160,.08), rgba(43,167,160,.08)), #fff; }
+  .ev.move{ border-left-color:var(--blue); background:linear-gradient(0deg, rgba(124,147,201,.08), rgba(124,147,201,.08)), #fff; }
+  .ev.hotel{ border-left-color:var(--purple); background:linear-gradient(0deg, rgba(139,111,206,.08), rgba(139,111,206,.08)), #fff; }
+  .ev.car{ border-left-color:var(--sunset); background:linear-gradient(0deg, rgba(232,121,79,.08), rgba(232,121,79,.08)), #fff; }
+  .ev.note{ font-weight:700; color:var(--sub); border-left-color:var(--gray); }
+  .t-now{ position:absolute; left:-6px; right:0; top:0; height:0; border-top:2px solid var(--pink); z-index:5; pointer-events:none; }
+  .t-now::before{
+    content:""; position:absolute; left:-3px; top:-4px;
+    width:8px; height:8px; border-radius:50%; background:var(--pink);
+    box-shadow:0 0 0 3px rgba(232,97,124,0.2);
+  }
 
   /* ---------- STAY CARDS ---------- */
   .stay{ display:flex; flex-direction:column; overflow:hidden; padding:0; }
@@ -310,7 +323,7 @@
     </div>
 
     <!-- DAY 1 -->
-    <div class="day-card">
+    <div class="day-card" data-date="2026-11-13">
       <img class="day-photo" loading="lazy" alt="神戸の街並み"
         src="https://img.activityjapan.com/wi/kobe-toieba1.jpg">
       <div class="day-map" id="leaflet-map-day1"></div>
@@ -320,31 +333,25 @@
         <div class="d-tag">有馬温泉 泊</div>
       </div>
       <div class="timeline-box">
-        <div class="timeline">
-          <div class="t-hours" style="height:728px;">
-            <span style="top:0px">9</span><span style="top:52px">10</span><span style="top:104px">11</span>
-            <span style="top:156px">12</span><span style="top:208px">13</span><span style="top:260px">14</span>
-            <span style="top:312px">15</span><span style="top:364px">16</span><span style="top:416px">17</span>
-            <span style="top:468px">18</span><span style="top:520px">19</span><span style="top:572px">20</span>
-            <span style="top:624px">21</span><span style="top:676px">22</span><span style="top:728px">23</span>
-          </div>
-          <div class="t-grid" style="height:728px;">
-            <div class="ev car compact" style="top:104px;height:26px;"><span class="tm">11:00-11:30</span>三宮集合・レンタカー受取</div>
-            <div class="ev sightsee" style="top:130px;height:78px;"><span class="tm">11:30-13:00</span>神戸観光①（北野異人館・南京町など）</div>
-            <div class="ev meal" style="top:208px;height:52px;"><span class="tm">13:00-14:00</span>昼食（神戸グルメ）</div>
-            <div class="ev sightsee" style="top:260px;height:78px;"><span class="tm">14:00-15:30</span>神戸観光②（メリケンパーク・ハーバーランド）</div>
-            <div class="ev move" style="top:338px;height:78px;"><span class="tm">15:30-17:00</span>有馬温泉へ移動</div>
-            <div class="ev hotel" style="top:416px;height:52px;"><span class="tm">17:00-18:00</span>亀の井ホテル有馬 チェックイン</div>
-            <div class="ev meal" style="top:468px;height:78px;"><span class="tm">18:00-19:30</span>夕食（土地の恵み会席）</div>
-            <div class="ev sightsee" style="top:546px;height:156px;"><span class="tm">19:30-22:30</span>温泉街散策・外湯めぐり（金の湯・銀の湯）</div>
-            <div class="ev note compact" style="top:702px;height:26px;"><span class="tm">23:00</span>門限（ホテル帰着）</div>
+        <div class="timeline" data-start="9:00" data-end="23:00">
+          <div class="t-hours"></div>
+          <div class="t-grid">
+            <div class="ev car compact" data-start="11:00" data-end="11:30"><span class="tm">11:00-11:30</span>三宮集合・レンタカー受取</div>
+            <div class="ev sightsee" data-start="11:30" data-end="13:00"><span class="tm">11:30-13:00</span>神戸観光①（北野異人館・南京町など）</div>
+            <div class="ev meal" data-start="13:00" data-end="14:00"><span class="tm">13:00-14:00</span>昼食（神戸グルメ）</div>
+            <div class="ev sightsee" data-start="14:00" data-end="15:30"><span class="tm">14:00-15:30</span>神戸観光②（メリケンパーク・ハーバーランド）</div>
+            <div class="ev move" data-start="15:30" data-end="17:00"><span class="tm">15:30-17:00</span>有馬温泉へ移動</div>
+            <div class="ev hotel" data-start="17:00" data-end="18:00"><span class="tm">17:00-18:00</span>亀の井ホテル有馬 チェックイン</div>
+            <div class="ev meal" data-start="18:00" data-end="19:30"><span class="tm">18:00-19:30</span>夕食（土地の恵み会席）</div>
+            <div class="ev sightsee" data-start="19:30" data-end="22:30"><span class="tm">19:30-22:30</span>温泉街散策・外湯めぐり（金の湯・銀の湯）</div>
+            <div class="ev note compact" data-start="22:30" data-end="23:00"><span class="tm">23:00</span>門限（ホテル帰着）</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- DAY 2 -->
-    <div class="day-card">
+    <div class="day-card" data-date="2026-11-14">
       <img class="day-photo" loading="lazy" alt="鳴門の渦潮"
         src="https://commons.wikimedia.org/wiki/Special:FilePath/The_whirling_current_in_Naruto.JPG?width=900">
       <div class="day-map" id="leaflet-map-day2"></div>
@@ -354,27 +361,20 @@
         <div class="d-tag">淡路島コテージ 泊</div>
       </div>
       <div class="timeline-box">
-        <div class="timeline">
-          <div class="t-hours" style="height:832px;">
-            <span style="top:0px">7</span><span style="top:52px">8</span><span style="top:104px">9</span>
-            <span style="top:156px">10</span><span style="top:208px">11</span><span style="top:260px">12</span>
-            <span style="top:312px">13</span><span style="top:364px">14</span><span style="top:416px">15</span>
-            <span style="top:468px">16</span><span style="top:520px">17</span><span style="top:572px">18</span>
-            <span style="top:624px">19</span><span style="top:676px">20</span><span style="top:728px">21</span>
-            <span style="top:780px">22</span><span style="top:832px">23</span>
-          </div>
-          <div class="t-grid" style="height:832px;">
-            <div class="ev meal" style="top:0px;height:52px;"><span class="tm">7:00-8:00</span>朝食</div>
-            <div class="ev note compact" style="top:52px;height:26px;"><span class="tm">8:00-8:30</span>チェックアウト準備</div>
-            <div class="ev move" style="top:78px;height:104px;"><span class="tm">8:30-10:30</span>鳴門公園へ移動（神戸淡路鳴門自動車道）</div>
-            <div class="ev sightsee" style="top:182px;height:78px;"><span class="tm">10:30-12:00</span>鳴門観潮（渦の道 or 観潮船）</div>
-            <div class="ev meal" style="top:260px;height:52px;"><span class="tm">12:00-13:00</span>昼食（鳴門・淡路島）</div>
-            <div class="ev move" style="top:312px;height:78px;"><span class="tm">13:00-14:30</span>淡路島へ移動</div>
-            <div class="ev sightsee" style="top:390px;height:130px;"><span class="tm">14:30-17:00</span>淡路島観光（道の駅うずしお等・自由行動）</div>
-            <div class="ev hotel" style="top:520px;height:52px;"><span class="tm">17:00-18:00</span>Awaji Seaview Resort チェックイン</div>
-            <div class="ev note" style="top:572px;height:78px;"><span class="tm">18:00-19:30</span>BBQ準備・買い出し</div>
-            <div class="ev meal" style="top:650px;height:78px;"><span class="tm">19:30-21:00</span>庭でBBQ（21時までに終了）</div>
-            <div class="ev note" style="top:728px;height:104px;"><span class="tm">21:00-23:00</span>室内で団らん（22時以降は静かに）</div>
+        <div class="timeline" data-start="7:00" data-end="23:00">
+          <div class="t-hours"></div>
+          <div class="t-grid">
+            <div class="ev meal" data-start="7:00" data-end="8:00"><span class="tm">7:00-8:00</span>朝食</div>
+            <div class="ev note compact" data-start="8:00" data-end="8:30"><span class="tm">8:00-8:30</span>チェックアウト準備</div>
+            <div class="ev move" data-start="8:30" data-end="10:30"><span class="tm">8:30-10:30</span>鳴門公園へ移動（神戸淡路鳴門自動車道）</div>
+            <div class="ev sightsee" data-start="10:30" data-end="12:00"><span class="tm">10:30-12:00</span>鳴門観潮（渦の道 or 観潮船）</div>
+            <div class="ev meal" data-start="12:00" data-end="13:00"><span class="tm">12:00-13:00</span>昼食（鳴門・淡路島）</div>
+            <div class="ev move" data-start="13:00" data-end="14:30"><span class="tm">13:00-14:30</span>淡路島へ移動</div>
+            <div class="ev sightsee" data-start="14:30" data-end="17:00"><span class="tm">14:30-17:00</span>淡路島観光（道の駅うずしお等・自由行動）</div>
+            <div class="ev hotel" data-start="17:00" data-end="18:00"><span class="tm">17:00-18:00</span>Awaji Seaview Resort チェックイン</div>
+            <div class="ev note" data-start="18:00" data-end="19:30"><span class="tm">18:00-19:30</span>BBQ準備・買い出し</div>
+            <div class="ev meal" data-start="19:30" data-end="21:00"><span class="tm">19:30-21:00</span>庭でBBQ（21時までに終了）</div>
+            <div class="ev note" data-start="21:00" data-end="23:00"><span class="tm">21:00-23:00</span>室内で団らん（22時以降は静かに）</div>
           </div>
         </div>
         <div class="note">渦潮は干潮・満潮の前後で見え方が大きく変わります。当日の<b>潮見表</b>を事前にチェックしましょう(リンクまとめ参照)。</div>
@@ -382,7 +382,7 @@
     </div>
 
     <!-- DAY 3 -->
-    <div class="day-card">
+    <div class="day-card" data-date="2026-11-15">
       <img class="day-photo" loading="lazy" alt="淡路島の海岸"
         src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohama_Coast_Awaji_Island_Japan08n.jpg?width=900">
       <div class="day-map" id="leaflet-map-day3"></div>
@@ -392,18 +392,14 @@
         <div class="d-tag">神戸解散</div>
       </div>
       <div class="timeline-box">
-        <div class="timeline">
-          <div class="t-hours" style="height:312px;">
-            <span style="top:0px">7</span><span style="top:52px">8</span><span style="top:104px">9</span>
-            <span style="top:156px">10</span><span style="top:208px">11</span><span style="top:260px">12</span>
-            <span style="top:312px">13</span>
-          </div>
-          <div class="t-grid" style="height:312px;">
-            <div class="ev meal" style="top:0px;height:104px;"><span class="tm">7:00-9:00</span>起床・朝食（各自）</div>
-            <div class="ev note" style="top:104px;height:52px;"><span class="tm">9:00-10:00</span>コテージ片付け・チェックアウト準備</div>
-            <div class="ev sightsee" style="top:156px;height:52px;"><span class="tm">10:00-11:00</span>チェックアウト→西海岸ドライブ（慶野松原）</div>
-            <div class="ev car compact" style="top:208px;height:26px;"><span class="tm">11:00</span>三宮着・レンタカー返却</div>
-            <div class="ev note" style="top:234px;height:78px;"><span class="tm">11:30-</span>神戸で解散・各自帰路へ</div>
+        <div class="timeline" data-start="7:00" data-end="13:00">
+          <div class="t-hours"></div>
+          <div class="t-grid">
+            <div class="ev meal" data-start="7:00" data-end="9:00"><span class="tm">7:00-9:00</span>起床・朝食（各自）</div>
+            <div class="ev note" data-start="9:00" data-end="10:00"><span class="tm">9:00-10:00</span>コテージ片付け・チェックアウト準備</div>
+            <div class="ev sightsee" data-start="10:00" data-end="11:00"><span class="tm">10:00-11:00</span>チェックアウト→西海岸ドライブ（慶野松原）</div>
+            <div class="ev car compact" data-start="11:00" data-end="11:30"><span class="tm">11:00</span>三宮着・レンタカー返却</div>
+            <div class="ev note" data-start="11:30" data-end="13:00"><span class="tm">11:30-</span>神戸で解散・各自帰路へ</div>
           </div>
         </div>
         <div class="note warn">レンタカー返却は<b>11:00必須</b>。ドライブ時間が延びると間に合わないので、10:00にはコテージを出発できるようにしましょう。</div>
@@ -726,6 +722,53 @@
         localStorage.setItem(key, JSON.stringify(saved));
       });
     });
+  });
+
+  function parseHM(str){
+    var p = str.split(':');
+    return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+  }
+
+  document.querySelectorAll('.timeline').forEach(function(timeline){
+    var hoursEl = timeline.querySelector('.t-hours');
+    var gridEl = timeline.querySelector('.t-grid');
+    var hourH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hour-h')) || 52;
+    var dayStart = parseHM(timeline.dataset.start);
+    var dayEnd = parseHM(timeline.dataset.end);
+    var totalH = (dayEnd - dayStart) / 60 * hourH;
+
+    hoursEl.style.height = totalH + 'px';
+    gridEl.style.height = totalH + 'px';
+
+    var hoursHtml = '';
+    for(var h = Math.ceil(dayStart / 60); h <= Math.floor(dayEnd / 60); h++){
+      var top = (h * 60 - dayStart) / 60 * hourH;
+      hoursHtml += '<span style="top:' + top + 'px">' + h + '</span>';
+    }
+    hoursEl.innerHTML = hoursHtml;
+
+    gridEl.querySelectorAll('.ev').forEach(function(ev){
+      var s = parseHM(ev.dataset.start);
+      var e = parseHM(ev.dataset.end);
+      ev.style.top = ((s - dayStart) / 60 * hourH) + 'px';
+      ev.style.height = ((e - s) / 60 * hourH) + 'px';
+    });
+
+    var dayCard = timeline.closest('.day-card');
+    var dateStr = dayCard ? dayCard.dataset.date : null;
+    if(dateStr){
+      var now = new Date();
+      var todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+      if(dateStr === todayStr){
+        var nowMin = now.getHours() * 60 + now.getMinutes();
+        if(nowMin >= dayStart && nowMin <= dayEnd){
+          var nowLine = document.createElement('div');
+          nowLine.className = 't-now';
+          nowLine.style.top = ((nowMin - dayStart) / 60 * hourH) + 'px';
+          gridEl.appendChild(nowLine);
+        }
+      }
+    }
   });
 
   document.querySelectorAll('[data-slider]').forEach(function(slider){
