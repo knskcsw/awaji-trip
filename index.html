@@ -22,6 +22,7 @@
     --pink:#e8617c;
     --purple:#8b6fce;
     --blue:#7c93c9;
+    --green:#5c9e6f;
     --gray:#a9a297;
     --radius:18px;
     --shadow: 0 8px 24px rgba(31,58,77,0.10), 0 2px 6px rgba(31,58,77,0.06);
@@ -43,7 +44,7 @@
 
   /* ---------- APP TAB BAR ---------- */
   .tabbar{
-    position:fixed; left:0; right:0; bottom:0; z-index:80;
+    position:fixed; left:0; right:0; bottom:0; z-index:2000;
     max-width:520px; margin:0 auto;
     display:flex; justify-content:space-around;
     background:rgba(255,255,255,0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
@@ -116,6 +117,7 @@
   .toc-icon.c-pink{ background:rgba(232,97,124,.16); color:var(--pink); }
   .toc-icon.c-blue{ background:rgba(124,147,201,.18); color:#5f77a8; }
   .toc-icon.c-gray{ background:rgba(169,162,151,.18); color:#7a7266; }
+  .toc-icon.c-green{ background:rgba(92,158,111,.16); color:var(--green); }
   .toc-label{ font-size:11px; font-weight:700; line-height:1.3; color:var(--navy-deep); }
 
   /* ---------- SECTIONS ---------- */
@@ -146,10 +148,11 @@
   .day-card{ margin-bottom:22px; }
   .day-photo{
     width:100%; height:auto;
-    border-radius:var(--radius) var(--radius) 0 0;
     display:block;
   }
   .day-map{ width:100%; height:200px; }
+  .leaflet-container{ isolation:isolate; }
+  .day-divider{ height:10px; background:var(--navy); }
   .meal-gallery{ display:flex; gap:6px; margin-top:8px; }
   .meal-gallery img{ flex:1; width:0; height:84px; object-fit:cover; border-radius:8px; }
   .meal-slider-wrap{ position:relative; margin-top:8px; }
@@ -170,6 +173,9 @@
     background:rgba(255,255,255,0.55); box-shadow:0 0 2px rgba(0,0,0,0.4);
   }
   .meal-slider-dots .dot.active{ background:#fff; }
+  .meal-slider-wrap.top{ margin-top:0; }
+  .meal-slider-wrap.top .meal-slider{ border-radius:0; }
+  .meal-slider-wrap.top .meal-slider img{ height:210px; }
   .leaflet-tooltip.map-num-tooltip{
     background:transparent; border:none; box-shadow:none;
     color:#fff; font-weight:800; font-size:11px; padding:0;
@@ -193,6 +199,7 @@
     display:flex; align-items:center; justify-content:space-between;
     border-radius:0;
   }
+  .day-head.first{ border-radius:var(--radius) var(--radius) 0 0; }
   .day-head .d-date{ font-size:12px; opacity:.85; font-weight:600; }
   .day-head .d-title{ font-size:16.5px; font-weight:800; margin-top:2px; }
   .day-head .d-tag{
@@ -223,6 +230,7 @@
     font-size:12px;
     font-weight:600;
     color:var(--ink);
+    text-decoration:none;
     background:#fff;
     border:1px solid var(--line);
     border-left:3px solid var(--gray);
@@ -335,6 +343,10 @@
         <span class="toc-icon c-navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="7.5" y1="3" x2="7.5" y2="6.5"/><line x1="16.5" y1="3" x2="16.5" y2="6.5"/></svg></span>
         <span class="toc-label">旅程</span>
       </a>
+      <a href="#sightseeing" class="toc-btn">
+        <span class="toc-icon c-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5.5-7 4 5 3-4L21 18"/><circle cx="8" cy="7.5" r="2"/><rect x="3" y="4" width="18" height="16" rx="2.5"/></svg></span>
+        <span class="toc-label">観光地</span>
+      </a>
       <a href="#stay" class="toc-btn">
         <span class="toc-icon c-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 5l8 7"/><path d="M6 10.5V20h12v-9.5"/><rect x="10" y="14" width="4" height="6"/></svg></span>
         <span class="toc-label">宿泊・レンタカー</span>
@@ -381,26 +393,27 @@
 
     <!-- DAY 1 -->
     <div class="day-card" data-date="2026-11-13">
+      <div class="day-head first">
+        <div><div class="d-date">2026.11.13 (金)</div><div class="d-title">1日目・神戸 → 有馬温泉</div></div>
+        <div class="d-tag">有馬温泉 泊</div>
+      </div>
       <img class="day-photo" loading="lazy" alt="神戸の街並み"
         src="https://img.activityjapan.com/wi/kobe-toieba1.jpg">
       <div class="day-map" id="leaflet-map-day1"></div>
       <div style="padding:2px 16px 10px; background:#fff;"><ul class="route-legend" id="route-legend-day1"></ul></div>
-      <div class="day-head first">
-        <div><div class="d-date">2026.11.13 (金)</div><div class="d-title">Day 1・神戸 → 有馬温泉</div></div>
-        <div class="d-tag">有馬温泉 泊</div>
-      </div>
+      <div class="day-divider"></div>
       <div class="timeline-box">
         <div class="timeline" data-start="9:00" data-end="23:00">
           <div class="t-hours"></div>
           <div class="t-grid">
-            <div class="ev car compact" data-start="11:00" data-end="11:30"><span class="tm">11:00-11:30</span>三宮集合・レンタカー受取</div>
-            <div class="ev sightsee" data-start="11:30" data-end="13:00"><span class="tm">11:30-13:00</span>神戸観光①（北野異人館・南京町など）</div>
+            <a class="ev car compact" href="#stay-car" data-start="11:00" data-end="11:30"><span class="tm">11:00-11:30</span>三宮集合・レンタカー受取</a>
+            <a class="ev sightsee" href="#spot-kobe1" data-start="11:30" data-end="13:00"><span class="tm">11:30-13:00</span>神戸観光①（北野異人館・南京町など）</a>
             <div class="ev meal" data-start="13:00" data-end="14:00"><span class="tm">13:00-14:00</span>昼食（神戸グルメ）</div>
-            <div class="ev sightsee" data-start="14:00" data-end="15:30"><span class="tm">14:00-15:30</span>神戸観光②（メリケンパーク・ハーバーランド）</div>
+            <a class="ev sightsee" href="#spot-kobe2" data-start="14:00" data-end="15:30"><span class="tm">14:00-15:30</span>神戸観光②（メリケンパーク・ハーバーランド）</a>
             <div class="ev move" data-start="15:30" data-end="17:00"><span class="tm">15:30-17:00</span>有馬温泉へ移動</div>
-            <div class="ev hotel" data-start="17:00" data-end="18:00"><span class="tm">17:00-18:00</span>亀の井ホテル有馬 チェックイン</div>
+            <a class="ev hotel" href="#stay-arima" data-start="17:00" data-end="18:00"><span class="tm">17:00-18:00</span>亀の井ホテル有馬 チェックイン</a>
             <div class="ev meal" data-start="18:00" data-end="19:30"><span class="tm">18:00-19:30</span>夕食（土地の恵み会席）</div>
-            <div class="ev sightsee" data-start="19:30" data-end="22:30"><span class="tm">19:30-22:30</span>温泉街散策・外湯めぐり（金の湯・銀の湯）</div>
+            <a class="ev sightsee" href="#spot-arima-onsen" data-start="19:30" data-end="22:30"><span class="tm">19:30-22:30</span>温泉街散策・外湯めぐり（金の湯・銀の湯）</a>
             <div class="ev note compact" data-start="22:30" data-end="23:00"><span class="tm">23:00</span>門限（ホテル帰着）</div>
           </div>
         </div>
@@ -409,14 +422,15 @@
 
     <!-- DAY 2 -->
     <div class="day-card" data-date="2026-11-14">
+      <div class="day-head first">
+        <div><div class="d-date">2026.11.14 (土)</div><div class="d-title">2日目・鳴門 → 淡路島</div></div>
+        <div class="d-tag">淡路島コテージ 泊</div>
+      </div>
       <img class="day-photo" loading="lazy" alt="鳴門の渦潮"
         src="https://commons.wikimedia.org/wiki/Special:FilePath/The_whirling_current_in_Naruto.JPG?width=900">
       <div class="day-map" id="leaflet-map-day2"></div>
       <div style="padding:2px 16px 10px; background:#fff;"><ul class="route-legend" id="route-legend-day2"></ul></div>
-      <div class="day-head first">
-        <div><div class="d-date">2026.11.14 (土)</div><div class="d-title">Day 2・鳴門 → 淡路島</div></div>
-        <div class="d-tag">淡路島コテージ 泊</div>
-      </div>
+      <div class="day-divider"></div>
       <div class="timeline-box">
         <div class="timeline" data-start="7:00" data-end="23:00">
           <div class="t-hours"></div>
@@ -424,11 +438,11 @@
             <div class="ev meal" data-start="7:00" data-end="8:00"><span class="tm">7:00-8:00</span>朝食</div>
             <div class="ev note compact" data-start="8:00" data-end="8:30"><span class="tm">8:00-8:30</span>チェックアウト準備</div>
             <div class="ev move" data-start="8:30" data-end="10:30"><span class="tm">8:30-10:30</span>鳴門公園へ移動（神戸淡路鳴門自動車道）</div>
-            <div class="ev sightsee" data-start="10:30" data-end="12:00"><span class="tm">10:30-12:00</span>鳴門観潮（渦の道 or 観潮船）</div>
+            <a class="ev sightsee" href="#spot-naruto" data-start="10:30" data-end="12:00"><span class="tm">10:30-12:00</span>鳴門観潮（渦の道 or 観潮船）</a>
             <div class="ev meal" data-start="12:00" data-end="13:00"><span class="tm">12:00-13:00</span>昼食（鳴門・淡路島）</div>
             <div class="ev move" data-start="13:00" data-end="14:30"><span class="tm">13:00-14:30</span>淡路島へ移動</div>
-            <div class="ev sightsee" data-start="14:30" data-end="17:00"><span class="tm">14:30-17:00</span>淡路島観光（道の駅うずしお等・自由行動）</div>
-            <div class="ev hotel" data-start="17:00" data-end="18:00"><span class="tm">17:00-18:00</span>Awaji Seaview Resort チェックイン</div>
+            <a class="ev sightsee" href="#spot-awaji" data-start="14:30" data-end="17:00"><span class="tm">14:30-17:00</span>淡路島観光（道の駅うずしお等・自由行動）</a>
+            <a class="ev hotel" href="#stay-awaji" data-start="17:00" data-end="18:00"><span class="tm">17:00-18:00</span>Awaji Seaview Resort チェックイン</a>
             <div class="ev note" data-start="18:00" data-end="19:30"><span class="tm">18:00-19:30</span>BBQ準備・買い出し</div>
             <div class="ev meal" data-start="19:30" data-end="21:00"><span class="tm">19:30-21:00</span>庭でBBQ（21時までに終了）</div>
             <div class="ev note" data-start="21:00" data-end="23:00"><span class="tm">21:00-23:00</span>室内で団らん（22時以降は静かに）</div>
@@ -440,26 +454,174 @@
 
     <!-- DAY 3 -->
     <div class="day-card" data-date="2026-11-15">
+      <div class="day-head first">
+        <div><div class="d-date">2026.11.15 (日)</div><div class="d-title">3日目・淡路島西海岸 → 解散</div></div>
+        <div class="d-tag">神戸解散</div>
+      </div>
       <img class="day-photo" loading="lazy" alt="淡路島の海岸"
         src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohama_Coast_Awaji_Island_Japan08n.jpg?width=900">
       <div class="day-map" id="leaflet-map-day3"></div>
       <div style="padding:2px 16px 10px; background:#fff;"><ul class="route-legend" id="route-legend-day3"></ul></div>
-      <div class="day-head first">
-        <div><div class="d-date">2026.11.15 (日)</div><div class="d-title">Day 3・淡路島西海岸 → 解散</div></div>
-        <div class="d-tag">神戸解散</div>
-      </div>
+      <div class="day-divider"></div>
       <div class="timeline-box">
         <div class="timeline" data-start="7:00" data-end="13:00">
           <div class="t-hours"></div>
           <div class="t-grid">
             <div class="ev meal" data-start="7:00" data-end="9:00"><span class="tm">7:00-9:00</span>起床・朝食（各自）</div>
             <div class="ev note" data-start="9:00" data-end="10:00"><span class="tm">9:00-10:00</span>コテージ片付け・チェックアウト準備</div>
-            <div class="ev sightsee" data-start="10:00" data-end="11:00"><span class="tm">10:00-11:00</span>チェックアウト→西海岸ドライブ（慶野松原）</div>
-            <div class="ev car compact" data-start="11:00" data-end="11:30"><span class="tm">11:00</span>三宮着・レンタカー返却</div>
+            <a class="ev sightsee" href="#spot-keino" data-start="10:00" data-end="11:00"><span class="tm">10:00-11:00</span>チェックアウト→西海岸ドライブ（慶野松原）</a>
+            <a class="ev car compact" href="#stay-car" data-start="11:00" data-end="11:30"><span class="tm">11:00</span>三宮着・レンタカー返却</a>
             <div class="ev note" data-start="11:30" data-end="13:00"><span class="tm">11:30-</span>神戸で解散・各自帰路へ</div>
           </div>
         </div>
         <div class="note warn">レンタカー返却は<b>11:00必須</b>。ドライブ時間が延びると間に合わないので、10:00にはコテージを出発できるようにしましょう。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 観光地 ============ -->
+  <section id="sightseeing">
+    <div class="section-head">
+      <div><h2>観光地</h2></div>
+    </div>
+
+    <div class="card stay" id="spot-kobe1">
+      <div class="meal-slider-wrap top">
+        <div class="meal-slider" data-slider>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Weathercock_House_Kobe_Kitano_Ijinkan_%E9%A2%A8%E8%A6%8B%E9%B6%8F%E3%81%AE%E9%A4%A8%EF%BC%88%E6%97%A7%E3%83%88%E3%83%BC%E3%83%9E%E3%82%B9%E4%BD%8F%E5%AE%85%EF%BC%89.jpg?width=900" alt="北野異人館 風見鶏の館" loading="lazy">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kobe_Nankinmachi_(chinatown)_entrance.jpg?width=900" alt="南京町" loading="lazy">
+        </div>
+        <div class="meal-slider-dots" data-dots>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="body">
+        <span class="badge">1日目 11:30-13:00</span>
+        <h3>神戸観光①（北野異人館・南京町）</h3>
+        <dl class="info">
+          <div><dt>見どころ</dt><dd>異人館通りの洋館めぐり（風見鶏の館・萌黄の館など）<br>南京町で食べ歩き</dd></div>
+          <div><dt>アクセス</dt><dd>三宮駅から徒歩約15分（異人館）<br>元町駅から徒歩約2分（南京町）</dd></div>
+          <div><dt>メモ</dt><dd>異人館は坂道が多いので歩きやすい靴で。<br>南京町はランチどきに混みやすい。</dd></div>
+          <div><dt>地図</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E9%87%8E%E7%95%B0%E4%BA%BA%E9%A4%A8%E8%A1%97" target="_blank" rel="noopener">北野異人館街</a><br><a href="https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E6%88%B8%E5%8D%97%E4%BA%AC%E7%94%BA" target="_blank" rel="noopener">南京町</a></dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card stay" id="spot-kobe2">
+      <div class="meal-slider-wrap top">
+        <div class="meal-slider" data-slider>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kobe_Meriken_Park_001.JPG?width=900" alt="メリケンパーク" loading="lazy">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Harborland_Kobe_Japan01-r.jpg?width=900" alt="神戸ハーバーランド" loading="lazy">
+        </div>
+        <div class="meal-slider-dots" data-dots>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="body">
+        <span class="badge">1日目 14:00-15:30</span>
+        <h3>神戸観光②（メリケンパーク・ハーバーランド）</h3>
+        <dl class="info">
+          <div><dt>見どころ</dt><dd>神戸ポートタワー・BE KOBEモニュメントのあるメリケンパーク<br>umieなどが並ぶハーバーランドの海沿い散策</dd></div>
+          <div><dt>アクセス</dt><dd>元町駅・ハーバーランド駅から徒歩圏内</dd></div>
+          <div><dt>メモ</dt><dd>港の景色が綺麗な写真スポットが多いエリア。</dd></div>
+          <div><dt>地図</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=%E3%83%A1%E3%83%AA%E3%82%B1%E3%83%B3%E3%83%91%E3%83%BC%E3%82%AF" target="_blank" rel="noopener">メリケンパーク</a><br><a href="https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E6%88%B8%E3%83%8F%E3%83%BC%E3%83%90%E3%83%BC%E3%83%A9%E3%83%B3%E3%83%89" target="_blank" rel="noopener">神戸ハーバーランド</a></dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card stay" id="spot-arima-onsen">
+      <div class="meal-slider-wrap top">
+        <div class="meal-slider" data-slider>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kin-no-yu_Arima_Onsen_2013.jpg?width=900" alt="金の湯" loading="lazy">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kin-no-yu_Arima_Onsen04n.jpg?width=900" alt="金の湯" loading="lazy">
+        </div>
+        <div class="meal-slider-dots" data-dots>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="body">
+        <span class="badge">1日目 19:30-22:30</span>
+        <h3>有馬温泉 外湯めぐり（金の湯・銀の湯）</h3>
+        <dl class="info">
+          <div><dt>見どころ</dt><dd>茶褐色の炭酸泉「金の湯」、無色透明のラジウム泉「銀の湯」を飲み比べ・入浴</dd></div>
+          <div><dt>営業時間</dt><dd>金の湯 8:00〜22:00（最終受付21:30）<br>銀の湯 9:00〜21:00（最終受付20:30）<span class="note-sub">※月2回火曜定休・要現地確認</span></dd></div>
+          <div><dt>料金</dt><dd>各館入浴 大人550〜650円程度<span class="note-sub">※要現地確認</span></dd></div>
+          <div><dt>アクセス</dt><dd>亀の井ホテル有馬から徒歩圏内</dd></div>
+          <div><dt>地図</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=%E6%9C%89%E9%A6%AC%E6%B8%A9%E6%B3%89+%E9%87%91%E3%81%AE%E6%B9%AF" target="_blank" rel="noopener">金の湯</a><br><a href="https://www.google.com/maps/search/?api=1&query=%E6%9C%89%E9%A6%AC%E6%B8%A9%E6%B3%89+%E9%8A%80%E3%81%AE%E6%B9%AF" target="_blank" rel="noopener">銀の湯</a></dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card stay" id="spot-naruto">
+      <div class="meal-slider-wrap top">
+        <div class="meal-slider" data-slider>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Naruto_Whirlpools_from_the_Uzunomichi.jpg?width=900" alt="渦の道からの眺め" loading="lazy">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_whirling_current_in_Naruto.JPG?width=900" alt="鳴門の渦潮" loading="lazy">
+        </div>
+        <div class="meal-slider-dots" data-dots>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="body">
+        <span class="badge">2日目 10:30-12:00</span>
+        <h3>鳴門観潮（渦の道）</h3>
+        <dl class="info">
+          <div><dt>見どころ</dt><dd>大鳴門橋の橋桁下遊歩道「渦の道」から渦潮を真上から見学。観潮船なら海上から間近に楽しめる。</dd></div>
+          <div><dt>営業時間</dt><dd>9:00〜18:00<span class="note-sub">※季節により変動・要現地確認</span></dd></div>
+          <div><dt>料金</dt><dd>渦の道 大人510円<span class="note-sub">※要現地確認</span></dd></div>
+          <div><dt>メモ</dt><dd>渦潮は干潮・満潮の前後がベスト。当日の潮見表を事前にチェック（リンクまとめ参照）。</dd></div>
+          <div><dt>地図</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=%E6%B8%A6%E3%81%AE%E9%81%93" target="_blank" rel="noopener">渦の道</a></dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card stay" id="spot-awaji">
+      <div class="meal-slider-wrap top">
+        <div class="meal-slider" data-slider>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Naruto_Strait_near_Kameura_Tourist_Port_2.JPG?width=900" alt="鳴門海峡（淡路島側）" loading="lazy">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Awajishima_Island_and_Naruto_Strait_from_Uzunomichi_Promenade_4.jpg?width=900" alt="淡路島と鳴門海峡" loading="lazy">
+        </div>
+        <div class="meal-slider-dots" data-dots>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="body">
+        <span class="badge">2日目 14:30-17:00</span>
+        <h3>淡路島観光（道の駅うずしお）</h3>
+        <dl class="info">
+          <div><dt>見どころ</dt><dd>大鳴門橋と鳴門海峡を一望できる展望テラス「うずまちテラス」、淡路島グルメ・お土産</dd></div>
+          <div><dt>アクセス</dt><dd>淡路島南ICから車で約5分</dd></div>
+          <div><dt>メモ</dt><dd>2025年10月リニューアルオープン。屋上に絶景スポットあり。</dd></div>
+          <div><dt>地図</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=%E9%81%93%E3%81%AE%E9%A7%85%E3%81%86%E3%81%9A%E3%81%97%E3%81%8A" target="_blank" rel="noopener">道の駅うずしお</a></dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card stay" id="spot-keino">
+      <div class="meal-slider-wrap top">
+        <div class="meal-slider" data-slider>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohama_Coast_Awaji_Island_Japan08n.jpg?width=900" alt="淡路島西海岸" loading="lazy">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Goshikihime_Kaihin_Park_Beach.jpg?width=900" alt="淡路島の海岸" loading="lazy">
+        </div>
+        <div class="meal-slider-dots" data-dots>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="body">
+        <span class="badge">3日目 10:00-11:00</span>
+        <h3>淡路島西海岸ドライブ（慶野松原）</h3>
+        <dl class="info">
+          <div><dt>見どころ</dt><dd>「淡路サンセットライン」の起点。松林と白砂が広がる海岸で、海沿いドライブが気持ちいいエリア</dd></div>
+          <div><dt>アクセス</dt><dd>コテージから車で約20分</dd></div>
+          <div><dt>メモ</dt><dd>午前中でも海の透明感が楽しめる。時間があれば周辺の五色浜まで足を延ばしても◎</dd></div>
+          <div><dt>地図</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=%E6%85%B6%E9%87%8E%E6%9D%BE%E5%8E%9F" target="_blank" rel="noopener">慶野松原</a></dd></div>
+        </dl>
       </div>
     </div>
   </section>
@@ -470,7 +632,7 @@
       <div><h2>宿泊・レンタカー</h2></div>
     </div>
 
-    <div class="card stay">
+    <div class="card stay" id="stay-arima">
       <img loading="lazy" alt="亀の井ホテル 有馬"
         src="https://cdn.jalan.jp/jalan/images/pict2L/Y9/Y339259/Y339259Bj2.jpg">
       <div class="body">
@@ -518,7 +680,7 @@
       </div>
     </div>
 
-    <div class="card stay">
+    <div class="card stay" id="stay-awaji">
       <img loading="lazy" alt="Awaji Seaview Resort in Nojima"
         src="https://www.img-ikyu.com/contents/common/image/acc7/00916617/4/org/14164736.jpg?auto=compress,format&fit=crop&h=500&lossless=0&w=750">
       <div class="body">
@@ -550,7 +712,7 @@
       </div>
     </div>
 
-    <div class="card stay">
+    <div class="card stay" id="stay-car">
       <div class="body" style="padding-top:16px;">
         <span class="badge car">レンタカー</span>
         <h3>ニコニコレンタカー 三宮店</h3>
