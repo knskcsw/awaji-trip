@@ -37,8 +37,27 @@
     color:var(--ink);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    padding-bottom:calc(66px + env(safe-area-inset-bottom));
   }
   .wrap{max-width:520px;margin:0 auto;background:var(--bg);min-height:100vh;position:relative;}
+
+  /* ---------- APP TAB BAR ---------- */
+  .tabbar{
+    position:fixed; left:0; right:0; bottom:0; z-index:80;
+    max-width:520px; margin:0 auto;
+    display:flex; justify-content:space-around;
+    background:rgba(255,255,255,0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);
+    padding:7px 4px calc(7px + env(safe-area-inset-bottom));
+    box-shadow:0 -6px 18px rgba(31,58,77,0.08);
+  }
+  .tabbar a{
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    text-decoration:none; color:var(--gray); flex:1; padding:2px 0;
+  }
+  .tabbar a svg{ width:22px; height:22px; }
+  .tabbar a span.tb-label{ font-size:9.5px; font-weight:700; }
+  .tabbar a.active{ color:var(--teal-deep); }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -305,7 +324,7 @@
   <!-- ============ 目次 ============ -->
   <section id="toc">
     <div class="section-head">
-      <div><h2>目次</h2><div class="en">Contents</div></div>
+      <div><h2>メニュー</h2><div class="en">Menu</div></div>
     </div>
     <div class="toc-grid">
       <a href="#map" class="toc-btn">
@@ -747,6 +766,29 @@
   </footer>
 </div>
 
+<nav class="tabbar" data-tabbar>
+  <a href="#toc" data-tab="toc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1.3"/><rect x="14" y="4" width="6" height="6" rx="1.3"/><rect x="4" y="14" width="6" height="6" rx="1.3"/><rect x="14" y="14" width="6" height="6" rx="1.3"/></svg>
+    <span class="tb-label">メニュー</span>
+  </a>
+  <a href="#itinerary" data-tab="itinerary">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="7.5" y1="3" x2="7.5" y2="6.5"/><line x1="16.5" y1="3" x2="16.5" y2="6.5"/></svg>
+    <span class="tb-label">旅程</span>
+  </a>
+  <a href="#cost" data-tab="cost">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.4"/></svg>
+    <span class="tb-label">費用</span>
+  </a>
+  <a href="#packing" data-tab="packing">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><line x1="4" y1="13" x2="20" y2="13"/></svg>
+    <span class="tb-label">持ち物</span>
+  </a>
+  <a href="#links" data-tab="links">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 0 0 7.07 0l2-2a5 5 0 0 0-7.07-7.07l-1 1"/><path d="M14 10a5 5 0 0 0-7.07 0l-2 2a5 5 0 0 0 7.07 7.07l1-1"/></svg>
+    <span class="tb-label">リンク</span>
+  </a>
+</nav>
+
 <script>
   document.querySelectorAll('ul.checklist').forEach(function(list){
     var key = 'trip-' + (list.dataset.store || 'default');
@@ -824,6 +866,25 @@
     }, { root: slider, threshold: 0.6 });
     imgs.forEach(function(img){ observer.observe(img); });
   });
+
+  (function(){
+    var tabs = document.querySelectorAll('[data-tabbar] a[data-tab]');
+    if(!tabs.length) return;
+    var map = {};
+    tabs.forEach(function(t){ map[t.dataset.tab] = t; });
+    var sections = Object.keys(map).map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    var current = null;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          if(current) current.classList.remove('active');
+          current = map[entry.target.id];
+          if(current) current.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function(sec){ observer.observe(sec); });
+  })();
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
